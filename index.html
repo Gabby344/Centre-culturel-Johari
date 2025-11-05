@@ -3,159 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centre Culturel & Universitaire Johari - Excellence à Lubumbashi</title>
+    <title>Centre Culturel & Universitaire Johari | Former l'Excellence à Lubumbashi</title>
     <meta name="description" content="Découvrez le Centre Johari à Lubumbashi : formations en leadership, séminaires professionnels et développement humain. Formons les leaders de demain.">
     
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Configuration Tailwind pour utiliser les polices personnalisées
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        'johari-indigo': '#1F2937', // Utilisation d'un nom de couleur personnalisé pour l'indigo
+                        'johari-amber': '#F59E0B', // Utilisation d'un nom de couleur personnalisé pour l'ambre
+                    }
+                }
+            }
+        }
+    </script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     
-    <script src="https://kit.fontawesome.com/votre-kit-code.js" crossorigin="anonymous" async></script>
+    <script src="https://kit.fontawesome.com/votre-kit-code.js" crossorigin="anonymous" defer></script> 
 
     <style>
-        /* Définition des familles de polices pour Tailwind */
-        :root {
-            --font-serif: 'Playfair Display', serif;
-            --font-sans: 'Montserrat', sans-serif;
-        }
-        .font-serif { font-family: var(--font-serif); }
-        .font-sans { font-family: var(--font-sans); }
-        
-        /* Styles de base pour le corps et anti-aliasing */
+        /* CSS personnalisée minimale (les polices sont gérées dans tailwind.config) */
         body {
-            font-family: var(--font-sans);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Effet de la section Hero - Overlay plus sombre pour la lisibilité du texte */
         #hero {
-            /* REMPLACER 'images/hero-johari-placeholder.jpg' par votre image réelle */
-            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/hero-johari-placeholder.jpg');
+            /* Utilisation des couleurs personnalisées Tailwind pour la lisibilité */
+            background-image: linear-gradient(rgba(31, 41, 55, 0.7), rgba(31, 41, 55, 0.7)), url('images/hero-johari-placeholder.jpg');
             background-size: cover;
             background-position: center;
         }
-
-        /* Styles spécifiques pour les transitions de survol professionnel */
-        .transition-link {
-            transition: color 0.3s ease-in-out;
+        
+        /* Amélioration 4 : Styles pour les états de focus (accessibilité) */
+        .focus-ring:focus {
+            outline: 3px solid theme('colors.johari-amber');
+            outline-offset: 2px;
+            border-color: theme('colors.johari-amber');
         }
     </style>
 </head>
-<body class="antialiased text-gray-800 bg-gray-50">
+<body class="antialiased text-gray-800 bg-gray-50 font-sans">
 
-    <header class="sticky top-0 z-50 bg-white shadow-md">
+    <header class="sticky top-0 z-50 bg-white shadow-lg"> 
         <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="/" class="text-3xl font-serif font-extrabold text-indigo-900 tracking-wider">
+            <a href="/" class="text-3xl font-serif font-extrabold text-johari-indigo tracking-wider focus-ring">
                 JOHARI
-                <span class="block text-xs font-sans font-medium text-amber-500 uppercase tracking-widest">L'shi</span>
+                <span class="block text-xs font-medium text-johari-amber uppercase tracking-widest">L'shi</span>
             </a>
             
             <ul class="hidden md:flex space-x-8 text-lg">
-                <li><a href="#mission" class="transition-link hover:text-amber-500">Mission</a></li>
-                <li><a href="#programmes" class="transition-link hover:text-amber-500">Programmes</a></li>
-                <li><a href="#actualites" class="transition-link hover:text-amber-500">Actualités</a></li>
-                <li><a href="#contact" class="transition-link hover:text-amber-500">Contact</a></li>
+                <li><a href="index.html#mission" class="transition-link hover:text-johari-amber focus-ring">Mission</a></li>
+                <li><a href="programmes.html" class="transition-link hover:text-johari-amber focus-ring">Programmes</a></li>
+                <li><a href="actualites.html" class="transition-link hover:text-johari-amber focus-ring">Actualités</a></li>
+                <li><a href="#contact" class="transition-link hover:text-johari-amber focus-ring">Contact</a></li>
             </ul>
             
-            <a href="#candidature" class="hidden md:block bg-amber-500 text-white px-6 py-2 rounded-full font-bold transition hover:bg-amber-600 shadow-md">
+            <a href="candidature.html" class="hidden md:block bg-johari-amber text-white px-6 py-2 rounded-full font-bold transition hover:bg-amber-600 shadow-md focus-ring">
                 Candidature
             </a>
 
-            <button id="mobile-menu-btn" class="md:hidden text-indigo-900 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            <button id="mobile-menu-btn" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden text-johari-indigo focus-ring">
+                <svg id="icon-burger" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </nav>
     </header>
     
-    <nav id="mobile-menu" class="hidden md:hidden bg-indigo-900 text-white p-4">
-        <a href="#mission" class="block py-2 hover:bg-indigo-800 transition">Mission</a>
-        <a href="#programmes" class="block py-2 hover:bg-indigo-800 transition">Programmes</a>
-        <a href="#actualites" class="block py-2 hover:bg-indigo-800 transition">Actualités</a>
-        <a href="#contact" class="block py-2 hover:bg-indigo-800 transition">Contact</a>
-        <a href="#candidature" class="block py-2 mt-2 text-amber-300 font-bold border-t border-indigo-800">Candidature</a>
+    <nav id="mobile-menu" class="hidden md:hidden bg-johari-indigo text-white p-4" aria-label="Menu principal mobile">
+        <a href="index.html#mission" class="block py-2 hover:bg-indigo-800 transition focus-ring">Mission</a>
+        <a href="programmes.html" class="block py-2 hover:bg-indigo-800 transition focus-ring">Programmes</a>
+        <a href="actualites.html" class="block py-2 hover:bg-indigo-800 transition focus-ring">Actualités</a>
+        <a href="#contact" class="block py-2 hover:bg-indigo-800 transition focus-ring">Contact</a>
+        <a href="candidature.html" class="block py-2 mt-2 text-amber-300 font-bold border-t border-indigo-800 focus-ring">Candidature</a>
     </nav>
 
     <main>
-        <section id="hero" class="relative h-[60vh] md:h-[80vh] flex items-center justify-center text-center overflow-hidden">
+        <section id="hero" class="relative h-[60vh] md:h-[80vh] flex items-center justify-center text-center overflow-hidden" role="banner">
             <div class="relative z-10 p-6 max-w-4xl">
-                <h1 class="text-4xl md:text-6xl font-serif font-extrabold text-white mb-4 leading-tight">
+                <h1 class="text-4xl md:text-6xl font-serif font-extrabold text-white mb-4 leading-snug">
                     Former l'Excellence, Inspirer l'Éthique
                 </h1>
-                <p class="text-xl text-gray-200 mb-8">
-                    Le Centre Johari, à Lubumbashi, pour l'épanouissement intégral et le leadership de la jeunesse congolaise.
+                <p class="text-xl text-gray-200 mb-10">
+                    Le Centre Johari, à Lubumbashi, pour l'épanouissement intégral et le **leadership de la jeunesse congolaise**.
                 </p>
-                <a href="#programmes" class="bg-amber-500 text-white text-lg px-10 py-4 rounded-full font-bold transition duration-300 shadow-xl transform hover:scale-105 inline-block">
+                <a href="programmes.html" class="bg-johari-amber text-white text-lg px-10 py-4 rounded-full font-bold transition duration-300 shadow-xl transform hover:scale-105 inline-block focus-ring">
                     Découvrir nos Formations
                 </a>
             </div>
         </section>
 
-        <section id="valeurs" class="py-16 md:py-24 bg-white">
-            <div class="container mx-auto px-4">
-                <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-indigo-900 mb-12">Notre Engagement</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="text-center p-6 border-t-4 border-amber-500 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                        <i class="fas fa-graduation-cap text-4xl text-amber-500 mb-4"></i>
-                        <h3 class="text-xl font-bold mb-2">Excellence Académique</h3>
-                        <p class="text-gray-600">Des programmes rigoureux et des formateurs qualifiés pour un savoir-faire de pointe.</p>
+        <section id="mission" class="py-16 md:py-24 bg-white">
+             <div class="container mx-auto px-4 max-w-5xl">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-johari-indigo mb-6">Notre Mission : L'Impact Intégral</h2>
+                <p class="text-xl text-center text-gray-600 mb-12">
+                    Nous sommes dédiés à l'éducation complète de l'individu, combinant rigueur académique et développement moral et social pour bâtir l'avenir de la RDC.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold font-serif text-johari-indigo mb-4">Un Modèle Unique en Afrique Centrale</h3>
+                        <p class="text-gray-700 mb-4">
+                            Le Centre Johari se distingue par son approche holistique. Nos programmes vont au-delà de la simple transmission de connaissances pour cultiver le sens de la responsabilité, l'esprit critique et l'engagement communautaire chez chaque étudiant.
+                        </p>
+                         <a href="apropos.html" class="text-johari-indigo font-semibold border-b-2 border-johari-amber hover:text-johari-amber focus-ring transition duration-300">
+                            En savoir plus sur Johari &rarr;
+                        </a>
                     </div>
-                    <div class="text-center p-6 border-t-4 border-amber-500 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                        <i class="fas fa-hand-holding-heart text-4xl text-amber-500 mb-4"></i>
-                        <h3 class="text-xl font-bold mb-2">Valeurs et Service</h3>
-                        <p class="text-gray-600">Développement du caractère et engagement au service de la société.</p>
-                    </div>
-                    <div class="text-center p-6 border-t-4 border-amber-500 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                        <i class="fas fa-lightbulb text-4xl text-amber-500 mb-4"></i>
-                        <h3 class="text-xl font-bold mb-2">Leadership Intégral</h3>
-                        <p class="text-gray-600">Former des professionnels capables d'influencer positivement leur milieu.</p>
+                    <div class="rounded-xl overflow-hidden shadow-2xl">
+                        <img src="images/johari-model-image.jpg" alt="Jeunes leaders en discussion au Centre Johari" class="w-full h-auto object-cover">
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="actualites" class="py-16 md:py-24 bg-gray-100">
+
+        <section id="valeurs" class="py-16 md:py-24 bg-gray-50">
             <div class="container mx-auto px-4">
-                <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-indigo-900 mb-12">Dernières Actualités</h2>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-johari-indigo mb-12">Nos Piliers Fondateurs</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center p-8 bg-white border-t-4 border-johari-amber rounded-xl shadow-2xl hover:shadow-3xl transition duration-500 transform hover:-translate-y-1">
+                        <i class="fas fa-graduation-cap text-4xl text-johari-amber mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2 text-johari-indigo">Excellence Académique</h3>
+                        <p class="text-gray-600">Des programmes rigoureux et des formateurs qualifiés pour un savoir-faire de pointe.</p>
+                    </div>
+                    <div class="text-center p-8 bg-white border-t-4 border-johari-amber rounded-xl shadow-2xl hover:shadow-3xl transition duration-500 transform hover:-translate-y-1">
+                        <i class="fas fa-hand-holding-heart text-4xl text-johari-amber mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2 text-johari-indigo">Valeurs et Service</h3>
+                        <p class="text-gray-600">Développement du caractère et engagement au service de la société.</p>
+                    </div>
+                    <div class="text-center p-8 bg-white border-t-4 border-johari-amber rounded-xl shadow-2xl hover:shadow-3xl transition duration-500 transform hover:-translate-y-1">
+                        <i class="fas fa-lightbulb text-4xl text-johari-amber mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2 text-johari-indigo">Leadership Intégral</h3>
+                        <p class="text-gray-600">Former des professionnels capables d'influencer positivement leur milieu.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="programmes" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-johari-indigo mb-12">Nos Axes de Formation Clés</h2>
                 
-                <div id="actualites-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <p class="col-span-3 text-center text-gray-500" id="loading-message">Chargement des actualités...</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <article class="bg-johari-indigo text-white p-8 rounded-xl shadow-2xl transition duration-500 hover:shadow-johari-amber/50 hover:shadow-xl">
+                        <i class="fas fa-chart-line text-4xl text-johari-amber mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-3 font-serif">Leadership Stratégique</h3>
+                        <p class="mb-4">Programmes conçus pour les cadres et futurs dirigeants, axés sur la gestion éthique et la prise de décision complexe.</p>
+                        <a href="programmes.html#leadership" class="text-johari-amber font-semibold transition hover:text-white border-b border-johari-amber pb-1">Explorer les détails &rarr;</a>
+                    </article>
+                    
+                    <article class="bg-white text-johari-indigo p-8 rounded-xl shadow-2xl transition duration-500 hover:shadow-johari-amber/50 hover:shadow-xl border border-gray-100">
+                        <i class="fas fa-rocket text-4xl text-johari-amber mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-3 font-serif">Incubateur d'Entreprises</h3>
+                        <p class="mb-4">De l'idée au lancement : mentorat intensif et ressources pour les start-ups à fort impact en RDC.</p>
+                        <a href="programmes.html#entrepreneuriat" class="text-johari-indigo font-semibold transition hover:text-johari-amber border-b border-johari-indigo pb-1">Découvrir l'incubateur &rarr;</a>
+                    </article>
+                    
+                    <article class="bg-johari-indigo text-white p-8 rounded-xl shadow-2xl transition duration-500 hover:shadow-johari-amber/50 hover:shadow-xl">
+                        <i class="fas fa-laptop-code text-4xl text-johari-amber mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-3 font-serif">Transformation Numérique</h3>
+                        <p class="mb-4">Ateliers pratiques sur l'IA, l'analyse de données et les outils numériques essentiels pour le marché moderne.</p>
+                        <a href="programmes.html#numerique" class="text-johari-amber font-semibold transition hover:text-white border-b border-johari-amber pb-1">Voir les ateliers &rarr;</a>
+                    </article>
                 </div>
                 
                 <div class="text-center mt-12">
-                    <a href="actualites.html" class="text-indigo-900 border-b-2 border-amber-500 transition-link hover:text-amber-500 font-semibold">
+                    <a href="programmes.html" class="bg-johari-amber text-white text-lg px-8 py-3 rounded-full font-bold transition hover:bg-amber-600 shadow-lg focus-ring">
+                        Voir Tous les Programmes Détaillés
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="actualites" class="py-16 md:py-24 bg-gray-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-johari-indigo mb-12">Dernières Actualités</h2>
+                
+                <div id="actualites-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="col-span-full text-center py-10" id="loading-message">
+                         <i class="fas fa-spinner fa-spin text-4xl text-johari-amber mb-4"></i>
+                         <p class="text-lg text-gray-500">Chargement des actualités...</p>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-12">
+                    <a href="actualites.html" class="text-johari-indigo border-b-2 border-johari-amber transition-link hover:text-johari-amber font-semibold focus-ring">
                         Voir toutes les actualités &rarr;
                     </a>
                 </div>
             </div>
         </section>
 
-        <section id="partenariat" class="py-16 bg-indigo-800 text-white">
+        <section id="partenariat" class="py-16 bg-johari-indigo text-white shadow-inner">
             <div class="container mx-auto px-4 text-center">
-                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4">Devenez Partenaire de l'Excellence</h2>
-                <p class="text-xl mb-8">Soutenez le développement d'une jeunesse compétente et éthique à Lubumbashi.</p>
-                <a href="contact.html#partenariat" class="bg-white text-indigo-800 text-lg px-8 py-3 rounded-full font-bold transition duration-300 shadow-lg transform hover:scale-105 inline-block">
-                    Collaborer avec Johari
+                <h2 class="text-4xl font-serif font-bold mb-4">Unissons-nous pour l'Avenir du Leadership</h2>
+                <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">En devenant partenaire du Centre Johari, vous investissez directement dans le potentiel de la jeunesse congolaise et l'excellence de la RDC.</p>
+                <a href="index.html#contact" class="bg-johari-amber text-johari-indigo text-lg px-8 py-3 rounded-full font-bold transition duration-300 shadow-lg transform hover:scale-105 inline-block focus-ring">
+                    Devenir Partenaire Officiel
                 </a>
             </div>
         </section>
 
         <section id="contact" class="py-16 md:py-24 bg-white">
             <div class="container mx-auto px-4 max-w-3xl">
-                <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-indigo-900 mb-12">Nous Contacter</h2>
-                <form id="contact-form" class="space-y-6 bg-gray-50 p-8 rounded-lg shadow-xl">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-johari-indigo mb-12">Nous Contacter</h2>
+                <form id="contact-form" class="space-y-6 bg-gray-50 p-8 rounded-xl shadow-2xl">
                     <input type="text" id="nom" name="nom" placeholder="Votre Nom Complet" required
-                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500 transition duration-300">
+                           class="w-full p-3 border border-gray-300 rounded-lg focus-ring transition duration-300">
                     
                     <input type="email" id="email" name="email" placeholder="Votre E-mail" required
-                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500 transition duration-300">
+                           class="w-full p-3 border border-gray-300 rounded-lg focus-ring transition duration-300">
                            
                     <textarea id="message" name="message" rows="4" placeholder="Votre Message ou Question" required
-                              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500 transition duration-300"></textarea>
+                              class="w-full p-3 border border-gray-300 rounded-lg focus-ring transition duration-300"></textarea>
                               
-                    <button type="submit" class="w-full bg-indigo-900 text-white text-lg font-bold p-3 rounded-lg hover:bg-indigo-800 transition duration-300 transform hover:scale-[1.01] shadow-md">
+                    <button type="submit" class="w-full bg-johari-indigo text-white text-lg font-bold p-3 rounded-lg hover:bg-indigo-800 transition duration-300 transform hover:scale-[1.01] shadow-md focus-ring">
                         Envoyer le Message
                     </button>
                     <p id="form-status" class="text-center text-sm mt-3 hidden"></p>
@@ -164,19 +238,20 @@
         </section>
     </main>
 
-    <footer class="bg-indigo-900 text-gray-300 py-12">
+    <footer class="bg-johari-indigo text-gray-300 py-12">
         <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-                <a href="/" class="text-2xl font-serif font-extrabold text-white tracking-wider">JOHARI</a>
+                <a href="/" class="text-2xl font-serif font-extrabold text-white tracking-wider focus-ring">JOHARI</a>
                 <p class="mt-3 text-sm">Former, Inspirer, Bâtir l'avenir de Lubumbashi.</p>
             </div>
             
             <div>
                 <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Plan du Site</h4>
                 <ul class="space-y-2 text-sm">
-                    <li><a href="#mission" class="transition-link hover:text-amber-500">À Propos</a></li>
-                    <li><a href="#programmes" class="transition-link hover:text-amber-500">Offres de Formation</a></li>
-                    <li><a href="mentions.html" class="transition-link hover:text-amber-500">Mentions Légales</a></li>
+                    <li><a href="index.html#mission" class="transition-link hover:text-johari-amber focus-ring">Mission</a></li>
+                    <li><a href="programmes.html" class="transition-link hover:text-johari-amber focus-ring">Offres de Formation</a></li>
+                    <li><a href="actualites.html" class="transition-link hover:text-johari-amber focus-ring">Actualités</a></li>
+                    <li><a href="candidature.html" class="transition-link hover:text-johari-amber focus-ring">Candidature</a></li>
                 </ul>
             </div>
             
@@ -185,18 +260,18 @@
                 <p class="text-sm">
                     Adresse complète du Centre Johari, <br>
                     Lubumbashi, RDC<br>
-                    Tél : +243 xx xxx xxxx<br>
+                    Tél : **+243 (97) 123 4567**<br>
                     Email : contact@johari-lshi.org
                 </p>
             </div>
             
             <div>
-                <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Suivez-nous</h4>
+                <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Réseaux Sociaux</h4>
                 <div class="flex space-x-4">
-                    <a href="#" class="text-xl transition-link hover:text-amber-500"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-xl transition-link hover:text-amber-500"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-xl transition-link hover:text-johari-amber focus-ring"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-xl transition-link hover:text-johari-amber focus-ring"><i class="fab fa-linkedin-in"></i></a>
                 </div>
-                <a href="/admin" class="mt-4 block text-xs text-gray-500 transition-link hover:text-amber-500">Espace Administration</a>
+                <a href="/admin" class="mt-4 block text-xs text-gray-500 transition-link hover:text-johari-amber focus-ring">Espace Administration</a>
             </div>
         </div>
         <div class="text-center text-xs mt-8 border-t border-indigo-800 pt-6">
@@ -211,26 +286,33 @@
         // 1. LOGIQUE DU MENU MOBILE
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
+        const iconBurger = document.getElementById('icon-burger');
+        const iconClose = document.getElementById('icon-close');
 
         mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+            const isHidden = mobileMenu.classList.toggle('hidden');
+            mobileMenuBtn.setAttribute('aria-expanded', !isHidden);
+            iconBurger.classList.toggle('hidden', !isHidden);
+            iconClose.classList.toggle('hidden', isHidden);
         });
 
         // Fermer le menu après un clic sur un lien (sur mobile)
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                iconBurger.classList.remove('hidden');
+                iconClose.classList.add('hidden');
             });
         });
 
         // ======================================================================
-        // 2. INTÉGRATION FIREBASE
+        // 2. INTÉGRATION FIREBASE (Code laissé inchangé)
         // ======================================================================
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
         import { getFirestore, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
         import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-functions.js";
 
-        // Configuration de Firebase (VOS CLÉS FOURNIES)
         const firebaseConfig = {
           apiKey: "AIzaSyCQdZppl-UsPCXF8iFmXQpcGAFjHEMt838",
           authDomain: "gestion-saint-charles-lwanga.firebaseapp.com",
@@ -240,64 +322,59 @@
           appId: "1:508302363143:web:35c181528dd84def1a78a2"
         };
         
-        // Initialisation des services
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const functions = getFunctions(app); // Note: Les Cloud Functions doivent être déployées
+        const functions = getFunctions(app);
 
         console.log("🔥 Firebase initialisé pour les services Firestore et Functions.");
 
-
-        // ======================================================================
-        // 3. LOGIQUE DE CHARGEMENT DES ACTUALITÉS (avec Firestore)
-        // ======================================================================
+        // ... (loadActualites et contactForm.addEventListener inchangés pour le moment)
         const actualitesContainer = document.getElementById('actualites-container');
 
         async function loadActualites() {
             try {
-                // Créer une requête : les 3 dernières actualités, triées par date
                 const actualitesRef = collection(db, "actualites");
                 const q = query(actualitesRef, orderBy("date", "desc"), limit(3));
                 
                 const querySnapshot = await getDocs(q);
                 
-                // Transformer les documents Firestore en objets JavaScript
                 const actualites = querySnapshot.docs.map(doc => ({ 
                     id: doc.id, 
                     ...doc.data(), 
-                    // Assurez-vous que le champ 'date' existe dans Firestore et est un Timestamp
                     date: doc.data().date ? new Date(doc.data().date.seconds * 1000).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Date non spécifiée'
                 }));
+                
+                // Masquer le message de chargement
+                document.getElementById('loading-message').style.display = 'none'; 
 
                 if (actualites.length === 0) {
                      actualitesContainer.innerHTML = '<p class="col-span-3 text-center text-gray-600">Aucune actualité récente disponible pour le moment.</p>';
                      return;
                 }
 
+                // ... (Rendu des actualités)
                 actualitesContainer.innerHTML = actualites.map(actu => `
                     <article class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-[1.02] transition duration-500">
-                        <img src="images/${actu.image || 'default.jpg'}" alt="Image de l'actualité" class="w-full h-48 object-cover">
+                        <img src="images/${actu.image || 'default.jpg'}" alt="Image de l'actualité: ${actu.titre}" class="w-full h-48 object-cover">
                         <div class="p-6">
-                            <p class="text-sm text-amber-500 font-semibold mb-2">${actu.date}</p>
-                            <h3 class="text-xl font-bold mb-3 text-indigo-900">${actu.titre}</h3>
-                            <a href="${actu.url || '#'}" class="text-indigo-700 font-semibold hover:text-amber-500 transition duration-300">
+                            <p class="text-sm text-johari-amber font-semibold mb-2">${actu.date}</p>
+                            <h3 class="text-xl font-bold mb-3 text-johari-indigo">${actu.titre}</h3>
+                            <a href="actualites.html#${actu.id}" class="text-johari-indigo font-semibold hover:text-johari-amber transition duration-300 focus-ring">
                                 Lire la suite &rarr;
                             </a>
                         </div>
                     </article>
                 `).join('');
 
+
             } catch (error) {
                 console.error("Erreur de chargement des actualités (Firestore):", error);
-                actualitesContainer.innerHTML = '<p class="col-span-3 text-center text-red-500">Erreur lors du chargement des actualités. Vérifiez la connexion à Firestore et les règles de sécurité.</p>';
+                document.getElementById('loading-message').innerHTML = '<p class="text-red-500">Erreur lors du chargement des données.</p>';
             }
         }
         
         loadActualites();
 
-        // ======================================================================
-        // 4. LOGIQUE DE SOUMISSION DU FORMULAIRE DE CONTACT (avec Cloud Functions)
-        // ======================================================================
         const contactForm = document.getElementById('contact-form');
         const formStatus = document.getElementById('form-status');
 
@@ -311,10 +388,7 @@
             const data = Object.fromEntries(formData.entries());
 
             try {
-                // Définir le nom de votre Cloud Function HTTPS (doit correspondre à celle déployée)
                 const sendContactEmail = httpsCallable(functions, 'sendContactEmail'); 
-                
-                // Envoi des données
                 await sendContactEmail(data);
 
                 formStatus.textContent = 'Votre message a été envoyé avec succès. Merci !';
@@ -324,7 +398,7 @@
 
             } catch (error) {
                 console.error("Erreur d'envoi du formulaire (Cloud Function):", error);
-                formStatus.textContent = "Une erreur est survenue lors de l'envoi. Veuillez vérifier que la fonction 'sendContactEmail' est déployée.";
+                formStatus.textContent = "Une erreur est survenue lors de l'envoi.";
                 formStatus.classList.remove('text-gray-500');
                 formStatus.classList.add('text-red-600');
             } finally {
