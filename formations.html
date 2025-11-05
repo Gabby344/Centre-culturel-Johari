@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formations | Centre Culturel & Universitaire Johari</title>
+    <meta name="description" content="Découvrez les dernières actualités sur nos formations, nouveaux programmes et opportunités d'apprentissage au Centre Johari.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        'johari-indigo': '#1F2937',
+                        'johari-amber': '#F59E0B',
+                        'johari-gold': '#D97706',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <script src="https://kit.fontawesome.com/votre-kit-code.js" crossorigin="anonymous" defer></script>
+
+    <style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            scroll-behavior: smooth;
+        }
+
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in-element.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+        }
+
+        .formation-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #3B82F6;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="antialiased text-gray-800 bg-gray-50 font-sans">
+    <!-- Header identique -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md transition-all duration-500">
+        <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="text-3xl font-serif font-extrabold text-johari-indigo tracking-wider transition-transform duration-300 hover:scale-105">
+                JOHARI
+                <span class="block text-xs font-medium text-johari-amber uppercase tracking-widest">L'shi</span>
+            </a>
+            
+            <ul class="hidden md:flex space-x-8 text-lg">
+                <li><a href="index.html#mission" class="transition-link hover:text-johari-amber py-2">Mission</a></li>
+                <li><a href="programmes.html" class="transition-link hover:text-johari-amber py-2">Programmes</a></li>
+                <li><a href="actualites.html" class="transition-link text-johari-amber font-bold py-2">Actualités</a></li>
+                <li><a href="index.html#contact" class="transition-link hover:text-johari-amber py-2">Contact</a></li>
+            </ul>
+            
+            <a href="candidature.html" class="hidden md:block bg-johari-amber text-white px-6 py-2 rounded-full font-bold transition-all duration-300 hover:bg-johari-gold shadow-md hover:shadow-lg">
+                Candidature
+            </a>
+        </nav>
+    </header>
+
+    <main class="py-16 md:py-24">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <header class="text-center mb-16 animate-fade-in">
+                <h1 class="text-4xl md:text-5xl font-serif font-extrabold text-johari-indigo mb-4">Actualités Formations</h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Restez informé des nouveaux programmes, des dates d'inscription et des innovations pédagogiques du Centre Johari.
+                </p>
+                
+                <!-- Navigation des catégories -->
+                <div class="flex flex-wrap justify-center gap-4 mt-8">
+                    <a href="actualites-toutes.html" class="bg-gray-200 text-johari-indigo px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-gray-300 transform hover:scale-105">
+                        Toutes
+                    </a>
+                    <a href="actualites-evenements.html" class="bg-gray-200 text-johari-indigo px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-gray-300 transform hover:scale-105">
+                        Événements
+                    </a>
+                    <a href="actualites-formations.html" class="bg-johari-indigo text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
+                        Formations
+                    </a>
+                    <a href="actualites-succes.html" class="bg-gray-200 text-johari-indigo px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-gray-300 transform hover:scale-105">
+                        Succès étudiants
+                    </a>
+                </div>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Formation 1 -->
+                <article class="bg-white rounded-xl shadow-lg overflow-hidden card-hover fade-in-element">
+                    <div class="relative">
+                        <img src="images/formation-digital.jpg" alt="Formation digitale" class="w-full h-48 object-cover transition-transform duration-700 hover:scale-110">
+                        <div class="formation-badge">Nouveau</div>
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-blue-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                Formation
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-sm text-johari-amber font-semibold mb-2 flex items-center">
+                            <i class="far fa-calendar-alt mr-2"></i>Lancement : 1er Avril 2024
+                        </p>
+                        <h3 class="text-xl font-bold mb-3 text-johari-indigo font-serif">Certification en Marketing Digital Avancé</h3>
+                        <p class="text-gray-600 mb-4">Maîtrisez les dernières stratégies digitales avec notre nouveau programme certifiant de 3 mois.</p>
+                        
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-500 flex items-center">
+                                <i class="fas fa-clock mr-1"></i>
+                                12 semaines
+                            </span>
+                            <span class="text-sm font-semibold text-johari-amber">Inscriptions ouvertes</span>
+                        </div>
+                        
+                        <div class="flex gap-2">
+                            <a href="formation-detail.html" class="flex-1 bg-johari-indigo text-white text-center py-2 rounded-lg font-semibold transition-all duration-300 hover:bg-indigo-800">
+                                Découvrir
+                            </a>
+                            <a href="candidature.html" class="flex-1 border border-johari-amber text-johari-amber text-center py-2 rounded-lg font-semibold transition-all duration-300 hover:bg-johari-amber hover:text-white">
+                                Postuler
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Formation 2 -->
+                <article class="bg-white rounded-xl shadow-lg overflow-hidden card-hover fade-in-element" style="animation-delay: 0.1s">
+                    <div class="relative">
+                        <img src="images/formation-leadership.jpg" alt="Formation leadership" class="w-full h-48 object-cover transition-transform duration-700 hover:scale-110">
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-blue-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                Formation
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-sm text-johari-amber font-semibold mb-2 flex items-center">
+                            <i class="far fa-calendar-alt mr-2"></i>Prochaine session : 15 Mai 2024
+                        </p>
+                        <h3 class="text-xl font-bold mb-3 text-johari-indigo font-serif">Programme Leadership Exécutif</h3>
+                        <p class="text-gray-600 mb-4">Développez vos compétences en leadership avec notre programme intensif pour cadres et dirigeants.</p>
+                        
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-500 flex items-center">
+                                <i class="fas fa-clock mr-1"></i>
+                                6 mois
+                            </span>
+                            <span class="text-sm font-semibold text-green-600">Quelques places</span>
+                        </div>
+                        
+                        <div class="flex gap-2">
+                            <a href="formation-detail.html" class="flex-1 bg-johari-indigo text-white text-center py-2 rounded-lg font-semibold transition-all duration-300 hover:bg-indigo-800">
+                                Découvrir
+                            </a>
+                            <a href="candidature.html" class="flex-1 border border-johari-amber text-johari-amber text-center py-2 rounded-lg font-semibold transition-all duration-300 hover:bg-johari-amber hover:text-white">
+                                Postuler
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Formation 3 -->
+                <article class="bg-white rounded-xl shadow-lg overflow-hidden card-hover fade-in-element" style="animation-delay: 0.2s">
+                    <div class="relative">
+                        <img src="images/formation-data.jpg" alt="Formation data" class="w-full h-48 object-cover transition-transform duration-700 hover:scale-110">
+                        <div class="formation-badge" style="background: #EF4444;">Urgent</div>
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-blue-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                Formation
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-sm text-johari-amber font-semibold mb-2 flex items-center">
+                            <i class="far fa-calendar-alt mr-2"></i>Démarrage : 10 Avril 2024
+                        </p>
+                        <h3 class="text-xl font-bold mb-3 text-johari-indigo font-serif">Analyste de Données - Session Intensive</h3>
+                        <p class="text-gray-600 mb-4">Formation accélérée de 8 semaines pour maîtriser l'analyse de données avec Python et SQL.</p>
+                        
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-500 flex items-center">
+                                <i class="fas fa-clock mr-1"></i>
+                                8 semaines
+                            </span>
+                            <span class="text-sm font-semibold text-red-600">Derniers jours</span>
+                        </div>
+                        
+                        <div class="flex gap-2">
+                            <a href="formation-detail.html" class="flex-1 bg-johari-indigo text-white text-center py-2 rounded-lg font-semibold transition-all duration-300 hover:bg-indigo-800">
+                                Découvrir
+                            </a>
+                            <a href="candidature.html" class="flex-1 border border-johari-amber text-johari-amber text-center py-2 rounded-lg font-semibold transition-all duration-300 hover:bg-johari-amber hover:text-white">
+                                Postuler
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Section informations importantes -->
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 fade-in-element" style="animation-delay: 0.3s">
+                <div class="bg-blue-50 border border-blue-200 rounded-xl p-6">
+                    <h3 class="text-xl font-bold text-blue-900 mb-3 flex items-center">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Processus d'Admission
+                    </h3>
+                    <p class="text-blue-800 mb-4">
+                        Les candidatures pour la rentrée 2024 sont ouvertes. Découvrez les étapes pour postuler à nos programmes.
+                    </p>
+                    <a href="admission.html" class="text-blue-600 font-semibold hover:text-blue-800 transition-colors duration-300">
+                        En savoir plus sur l'admission →
+                    </a>
+                </div>
+                
+                <div class="bg-amber-50 border border-amber-200 rounded-xl p-6">
+                    <h3 class="text-xl font-bold text-amber-900 mb-3 flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        Bourses d'Études
+                    </h3>
+                    <p class="text-amber-800 mb-4">
+                        Des bourses sont disponibles pour les étudiants méritants. Dépêchez-vous, les dossiers doivent être soumis avant le 30 avril.
+                    </p>
+                    <a href="bourses.html" class="text-amber-600 font-semibold hover:text-amber-800 transition-colors duration-300">
+                        Découvrir les bourses →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Animation au défilement
+        const fadeElements = document.querySelectorAll('.fade-in-element');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', fadeInOnScroll);
+        window.addEventListener('load', fadeInOnScroll);
+    </script>
+</body>
+</html>
