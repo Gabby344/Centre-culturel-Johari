@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion Administration | Centre Johari</title>
+    <meta name="robots" content="noindex, nofollow"> <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        'johari-indigo': '#1F2937', 
+                        'johari-amber': '#F59E0B', 
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .focus-ring:focus {
+            outline: 3px solid theme('colors.johari-amber');
+            outline-offset: 2px;
+            border-color: theme('colors.johari-amber');
+        }
+    </style>
+</head>
+<body class="antialiased font-sans flex items-center justify-center min-h-screen bg-gray-100">
+
+    <div class="w-full max-w-md">
+        
+        <div class="text-center mb-10">
+            <a href="/" class="text-4xl font-serif font-extrabold text-johari-indigo tracking-wider focus-ring">
+                JOHARI
+                <span class="block text-xs font-medium text-johari-amber uppercase tracking-widest">Administration</span>
+            </a>
+        </div>
+        
+        <div id="login-card" class="bg-white p-8 md:p-10 rounded-xl shadow-2xl">
+            <h1 class="text-2xl font-bold text-center text-johari-indigo mb-8">Connexion à l'Espace Admin</h1>
+            
+            <form id="login-form" class="space-y-6">
+                
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">E-mail</label>
+                    <input type="email" id="email" name="email" required
+                           class="w-full p-3 border border-gray-300 rounded-lg focus-ring transition duration-300"
+                           placeholder="admin@johari-lshi.org">
+                </div>
+                
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Mot de passe</label>
+                    <input type="password" id="password" name="password" required
+                           class="w-full p-3 border border-gray-300 rounded-lg focus-ring transition duration-300"
+                           placeholder="********">
+                </div>
+                
+                <button type="submit" id="login-btn" class="w-full bg-johari-amber text-johari-indigo text-lg font-bold p-3 rounded-lg hover:bg-amber-600 transition duration-300 shadow-md focus-ring">
+                    Se Connecter
+                </button>
+                
+                <p id="error-message" class="text-center text-red-600 text-sm mt-3 hidden"></p>
+                <p id="loading-message" class="text-center text-gray-500 text-sm mt-3 hidden">Vérification des identifiants...</p>
+            </form>
+        </div>
+        
+        <p class="text-center text-gray-500 text-xs mt-6">
+            &copy; <span id="current-year"></span> Centre Culturel & Universitaire Johari.
+        </p>
+    </div>
+
+    <script type="module">
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // ======================================================================
+        // INTÉGRATION FIREBASE AUTHENTICATION
+        // ======================================================================
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        
+        // Configuration de Firebase (VOS CLÉS FOURNIES)
+        const firebaseConfig = {
+          apiKey: "AIzaSyCQdZppl-UsPCXF8iFmXQpcGAFjHEMt838",
+          authDomain: "gestion-saint-charles-lwanga.firebaseapp.com",
+          projectId: "gestion-saint-charles-lwanga",
+          storageBucket: "gestion-saint-charles-lwanga.firebasestorage.app",
+          messagingSenderId: "508302363143",
+          appId: "1:508302363143:web:35c181528dd84def1a78a2"
+        };
+        
+        // Initialisation des services
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        const loginForm = document.getElementById('login-form');
+        const loginBtn = document.getElementById('login-btn');
+        const errorMessage = document.getElementById('error-message');
+        const loadingMessage = document.getElementById('loading-message');
+
+        // GESTION DE LA SOUMISSION DU FORMULAIRE DE CONNEXION
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            errorMessage.classList.add('hidden');
+            loadingMessage.classList.remove('hidden');
+            loginBtn.disabled = true;
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                // Tentative de connexion avec l'e-mail et le mot de passe
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                
+                // Connexion réussie
+                console.log("Admin connecté:", userCredential.user.uid);
+                
+                // Redirection vers le tableau de bord sécurisé
+                window.location.href = "dashboard.html"; 
+
+            } catch (error) {
+                // Échec de la connexion
+                loadingMessage.classList.add('hidden');
+                loginBtn.disabled = false;
+                
+                let msg = "E-mail ou mot de passe incorrect.";
+                
+                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                    msg = "Identifiants invalides. Veuillez vérifier votre e-mail et mot de passe.";
+                } else if (error.code === 'auth/too-many-requests') {
+                    msg = "Trop de tentatives. Veuillez réessayer plus tard.";
+                }
+                
+                errorMessage.textContent = msg;
+                errorMessage.classList.remove('hidden');
+                console.error("Erreur de connexion Admin:", error.message);
+            }
+        });
+        
+        // Gérer le cas où l'utilisateur est déjà connecté (pour ne pas afficher la page de login)
+        // Ceci est une bonne pratique de sécurité et d'UX.
+        // onAuthStateChanged(auth, (user) => {
+        //     if (user) {
+        //         window.location.href = "dashboard.html";
+        //     }
+        // });
+    </script>
+</body>
+</html>
