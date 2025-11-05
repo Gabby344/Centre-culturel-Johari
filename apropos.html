@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À Propos du Centre Johari | Notre Mission et Nos Valeurs</title>
+    <meta name="description" content="Découvrez la mission, l'histoire et les valeurs du Centre Culturel et Universitaire Johari à Lubumbashi. Excellence académique, développement intégral et éthique professionnelle.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        'johari-indigo': '#1F2937', 
+                        'johari-amber': '#F59E0B', 
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <script src="https://kit.fontawesome.com/votre-kit-code.js" crossorigin="anonymous" defer></script>
+
+    <style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .focus-ring:focus {
+            outline: 3px solid theme('colors.johari-amber');
+            outline-offset: 2px;
+            border-color: theme('colors.johari-amber');
+        }
+        .transition-link {
+            transition: color 0.3s ease-in-out;
+        }
+        /* Style pour l'image de la mission */
+        #mission-banner {
+             background-image: linear-gradient(rgba(31, 41, 55, 0.8), rgba(31, 41, 55, 0.8)), url('images/johari-team-placeholder.jpg');
+             background-size: cover;
+             background-position: center;
+        }
+    </style>
+</head>
+<body class="antialiased text-gray-800 bg-gray-50 font-sans">
+
+    <header class="sticky top-0 z-50 bg-white shadow-lg"> 
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="text-3xl font-serif font-extrabold text-johari-indigo tracking-wider focus-ring">
+                JOHARI
+                <span class="block text-xs font-medium text-johari-amber uppercase tracking-widest">L'shi</span>
+            </a>
+            
+            <ul class="hidden md:flex space-x-8 text-lg">
+                <li><a href="#" class="transition-link text-johari-amber font-bold focus-ring">À Propos</a></li>
+                <li><a href="programmes.html" class="transition-link hover:text-johari-amber focus-ring">Programmes</a></li>
+                <li><a href="actualites.html" class="transition-link hover:text-johari-amber focus-ring">Actualités</a></li>
+                <li><a href="index.html#contact" class="transition-link hover:text-johari-amber focus-ring">Contact</a></li>
+            </ul>
+            
+            <a href="candidature.html" class="hidden md:block bg-johari-amber text-white px-6 py-2 rounded-full font-bold transition hover:bg-amber-600 shadow-md focus-ring">
+                Candidature
+            </a>
+
+            <button id="mobile-menu-btn" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden text-johari-indigo focus-ring">
+                <svg id="icon-burger" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </nav>
+    </header>
+    
+    <nav id="mobile-menu" class="hidden md:hidden bg-johari-indigo text-white p-4" aria-label="Menu principal mobile">
+        <a href="#top" class="block py-2 text-amber-300 font-bold hover:bg-indigo-800 transition focus-ring">À Propos</a>
+        <a href="programmes.html" class="block py-2 hover:bg-indigo-800 transition focus-ring">Programmes</a>
+        <a href="actualites.html" class="block py-2 hover:bg-indigo-800 transition focus-ring">Actualités</a>
+        <a href="index.html#contact" class="block py-2 hover:bg-indigo-800 transition focus-ring">Contact</a>
+        <a href="candidature.html" class="block py-2 mt-2 text-amber-300 font-bold border-t border-indigo-800 focus-ring">Candidature</a>
+    </nav>
+
+    <main>
+        <section id="banner" class="bg-johari-indigo py-20 text-white text-center">
+            <div class="container mx-auto px-4 max-w-4xl">
+                <p class="text-lg font-semibold text-johari-amber uppercase tracking-widest mb-2">Notre Histoire, Notre Vision</p>
+                <h1 class="text-5xl md:text-6xl font-serif font-extrabold mb-4">Le Centre Johari : Un Foyer d'Excellence à Lubumbashi</h1>
+                <p class="text-xl text-gray-300">
+                    Depuis sa fondation, Johari s'engage à former une nouvelle génération de leaders compétents et éthiques, prêts à transformer positivement la République Démocratique du Congo.
+                </p>
+            </div>
+        </section>
+
+        <section id="mission-detail" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-4 max-w-6xl">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <h2 class="text-4xl font-serif font-bold text-johari-indigo mb-4">Notre Raison d'Être</h2>
+                        <p class="text-gray-700 text-lg">
+                            La mission du Centre Johari est de promouvoir le **développement intégral** de la personne, en mettant l'accent sur l'excellence professionnelle, le sens de la responsabilité et l'engagement civique. Nous offrons un environnement académique stimulant qui encourage l'esprit critique et la recherche de la vérité.
+                        </p>
+                        
+                        <h3 class="text-2xl font-bold text-johari-amber mt-8 flex items-center"><i class="fas fa-handshake text-johari-indigo mr-3"></i> Soutien Spirituel et Éthique</h3>
+                        <p class="text-gray-600">
+                            Fidèles à notre inspiration chrétienne (Opus Dei), nous proposons des moyens de formation spirituelle et morale pour aider chacun à intégrer l'éthique dans sa vie professionnelle et personnelle. Ces activités sont proposées dans le respect total de la liberté de conscience de chacun.
+                        </p>
+                        
+                        <a href="index.html#contact" class="inline-block mt-6 text-johari-indigo border-b-2 border-johari-amber hover:text-johari-amber font-semibold focus-ring transition duration-300">
+                            Rejoignez notre communauté &rarr;
+                        </a>
+                    </div>
+                    
+                    <div class="h-96 rounded-xl overflow-hidden shadow-2xl">
+                         <img src="images/johari-class-placeholder.jpg" alt="Salle de classe moderne au Centre Johari" class="w-full h-full object-cover transition duration-700 hover:scale-105">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="valeurs-approfondies" class="py-16 md:py-24 bg-johari-indigo text-white">
+            <div class="container mx-auto px-4 max-w-6xl">
+                <h2 class="text-4xl font-serif font-bold text-center text-johari-amber mb-12">Les Valeurs qui Nous Guident</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="text-center p-6 border-b-4 border-johari-amber">
+                        <i class="fas fa-lightbulb text-4xl mb-3"></i>
+                        <h3 class="text-xl font-bold mb-2">Service</h3>
+                        <p class="text-gray-300">Mettre ses talents au service de la société, et considérer son travail comme une contribution essentielle.</p>
+                    </div>
+                    <div class="text-center p-6 border-b-4 border-johari-amber">
+                        <i class="fas fa-globe-africa text-4xl mb-3"></i>
+                        <h3 class="text-xl font-bold mb-2">Ancrage Local</h3>
+                        <p class="text-gray-300">Contribuer au développement socio-économique et culturel de Lubumbashi et de la RDC.</p>
+                    </div>
+                    <div class="text-center p-6 border-b-4 border-johari-amber">
+                        <i class="fas fa-book-open text-4xl mb-3"></i>
+                        <h3 class="text-xl font-bold mb-2">Rigueur</h3>
+                        <p class="text-gray-300">Encourager une méthodologie de travail rigoureuse et une quête constante du savoir.</p>
+                    </div>
+                    <div class="text-center p-6 border-b-4 border-johari-amber">
+                        <i class="fas fa-users text-4xl mb-3"></i>
+                        <h3 class="text-xl font-bold mb-2">Liberté</h3>
+                        <p class="text-gray-300">Respecter et promouvoir la liberté individuelle, la diversité des opinions et la tolérance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="equipe" class="py-16 md:py-24 bg-gray-50">
+             <div class="container mx-auto px-4 max-w-6xl">
+                <h2 class="text-4xl font-serif font-bold text-center text-johari-indigo mb-16">Notre Équipe de Direction</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <div class="text-center p-6 bg-white rounded-xl shadow-lg border-t-2 border-johari-amber">
+                        <img src="images/placeholder-profile1.jpg" alt="Photo du Directeur" class="w-28 h-28 object-cover rounded-full mx-auto mb-4 border-4 border-johari-amber/50">
+                        <h3 class="text-xl font-bold text-johari-indigo">Dr. [Nom du Directeur]</h3>
+                        <p class="text-johari-amber mb-2">Directeur Général</p>
+                        <p class="text-sm text-gray-600">Expert en Leadership et Gouvernance. [5 mots clés sur son expertise].</p>
+                    </div>
+                    
+                    <div class="text-center p-6 bg-white rounded-xl shadow-lg border-t-2 border-johari-amber">
+                        <img src="images/placeholder-profile2.jpg" alt="Photo du Responsable Académique" class="w-28 h-28 object-cover rounded-full mx-auto mb-4 border-4 border-johari-amber/50">
+                        <h3 class="text-xl font-bold text-johari-indigo">Mme [Nom du Responsable]</h3>
+                        <p class="text-johari-amber mb-2">Responsable Académique</p>
+                        <p class="text-sm text-gray-600">Spécialiste en pédagogie et innovation éducative.</p>
+                    </div>
+                    
+                     <div class="text-center p-6 bg-white rounded-xl shadow-lg border-t-2 border-johari-amber">
+                        <img src="images/placeholder-profile3.jpg" alt="Photo du Responsable Communautaire" class="w-28 h-28 object-cover rounded-full mx-auto mb-4 border-4 border-johari-amber/50">
+                        <h3 class="text-xl font-bold text-johari-indigo">M. [Nom du Responsable]</h3>
+                        <p class="text-johari-amber mb-2">Coordination des Activités Culturelles</p>
+                        <p class="text-sm text-gray-600">Promoteur de l'art et de la culture Congolaise.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="cta-contact" class="py-16 bg-johari-amber text-johari-indigo">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4">Prêt à faire partie de l'histoire de Johari ?</h2>
+                <p class="text-xl mb-8">Déposez votre candidature ou contactez-nous pour en savoir plus sur nos engagements.</p>
+                <a href="candidature.html" class="bg-johari-indigo text-white text-lg px-8 py-3 rounded-full font-bold transition duration-300 shadow-lg transform hover:scale-105 inline-block focus-ring mr-4">
+                    Soumettre sa Candidature
+                </a>
+                 <a href="index.html#contact" class="bg-white text-johari-indigo text-lg px-8 py-3 rounded-full font-bold transition duration-300 shadow-lg transform hover:scale-105 inline-block focus-ring">
+                    Nous Contacter
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-johari-indigo text-gray-300 py-12">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <a href="/" class="text-2xl font-serif font-extrabold text-white tracking-wider focus-ring">JOHARI</a>
+                <p class="mt-3 text-sm">Former, Inspirer, Bâtir l'avenir de Lubumbashi.</p>
+            </div>
+            
+            <div>
+                <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Plan du Site</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="index.html#mission" class="transition-link hover:text-johari-amber focus-ring">Mission</a></li>
+                    <li><a href="programmes.html" class="transition-link hover:text-johari-amber focus-ring">Offres de Formation</a></li>
+                    <li><a href="actualites.html" class="transition-link hover:text-johari-amber focus-ring">Actualités</a></li>
+                    <li><a href="candidature.html" class="transition-link hover:text-johari-amber focus-ring">Candidature</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Nous Trouver</h4>
+                <p class="text-sm">
+                    Adresse complète du Centre Johari, <br>
+                    Lubumbashi, RDC<br>
+                    Tél : +243 xx xxx xxxx<br>
+                    Email : johari.lshi@gmail.com
+                </p>
+            </div>
+            
+            <div>
+                <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Réseaux Sociaux</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-xl transition-link hover:text-johari-amber focus-ring"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-xl transition-link hover:text-johari-amber focus-ring"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <a href="/admin" class="mt-4 block text-xs text-gray-500 transition-link hover:text-johari-amber focus-ring">Espace Administration</a>
+            </div>
+        </div>
+        <div class="text-center text-xs mt-8 border-t border-indigo-800 pt-6">
+            &copy; <span id="current-year"></span> Centre Culturel & Universitaire Johari. Tous droits réservés.
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const iconBurger = document.getElementById('icon-burger');
+        const iconClose = document.getElementById('icon-close');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.toggle('hidden');
+            mobileMenuBtn.setAttribute('aria-expanded', !isHidden);
+            iconBurger.classList.toggle('hidden', !isHidden);
+            iconClose.classList.toggle('hidden', isHidden);
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                iconBurger.classList.remove('hidden');
+                iconClose.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
