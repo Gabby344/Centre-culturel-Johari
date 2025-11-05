@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord Admin | Johari</title>
+    <meta name="robots" content="noindex, nofollow">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        'johari-indigo': '#1F2937', 
+                        'johari-amber': '#F59E0B', 
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/votre-kit-code.js" crossorigin="anonymous" defer></script>
+    
+    <style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .focus-ring:focus {
+            outline: 3px solid theme('colors.johari-amber');
+            outline-offset: 2px;
+            border-color: theme('colors.johari-amber');
+        }
+        /* Cache initialement le contenu pour éviter le flash avant l'authentification */
+        #main-content { visibility: hidden; } 
+    </style>
+</head>
+<body class="antialiased font-sans bg-gray-50 min-h-screen flex">
+
+    <aside class="w-64 bg-johari-indigo text-white p-6 flex flex-col shadow-xl">
+        <div class="mb-10">
+            <h2 class="text-3xl font-serif font-extrabold tracking-wider">JOHARI</h2>
+            <p class="text-xs text-johari-amber uppercase tracking-widest">Admin Panel</p>
+        </div>
+        
+        <nav class="flex-grow space-y-4">
+            <a href="#overview" class="flex items-center space-x-3 p-3 rounded-lg transition duration-200 bg-indigo-700 font-bold" data-target="overview-section">
+                <i class="fas fa-chart-line"></i> <span>Aperçu Général</span>
+            </a>
+            <a href="#actualites" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-indigo-700 transition duration-200" data-target="actualites-section">
+                <i class="fas fa-newspaper"></i> <span>Gérer les Actualités</span>
+            </a>
+            <a href="#candidatures" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-indigo-700 transition duration-200" data-target="candidatures-section">
+                <i class="fas fa-users"></i> <span>Nouvelles Candidatures</span>
+            </a>
+            </nav>
+        
+        <button id="logout-btn" class="mt-8 flex items-center justify-center space-x-3 p-3 rounded-lg bg-red-600 hover:bg-red-700 transition duration-300 focus-ring">
+            <i class="fas fa-sign-out-alt"></i> <span>Déconnexion</span>
+        </button>
+    </aside>
+
+    <main id="main-content" class="flex-grow p-10">
+        
+        <header class="mb-10 border-b pb-4 flex justify-between items-center">
+            <h1 class="text-4xl font-serif font-bold text-johari-indigo">Bienvenue, Admin !</h1>
+            <p id="user-display" class="text-gray-600 italic">Connecté en tant que...</p>
+        </header>
+
+        <section id="overview-section" class="content-section space-y-8">
+            <h2 class="text-3xl font-serif font-semibold text-johari-indigo border-b pb-2">Tableau de Bord</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-johari-amber">
+                    <p class="text-sm uppercase text-gray-500 font-bold">Total Candidatures</p>
+                    <p id="stat-candidatures" class="text-4xl font-bold text-johari-indigo mt-1">--</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-johari-amber">
+                    <p class="text-sm uppercase text-gray-500 font-bold">Actualités Publiées</p>
+                    <p id="stat-actualites" class="text-4xl font-bold text-johari-indigo mt-1">--</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-johari-amber">
+                    <p class="text-sm uppercase text-gray-500 font-bold">Demandes de Contact (30j)</p>
+                    <p id="stat-contacts" class="text-4xl font-bold text-johari-indigo mt-1">--</p>
+                </div>
+            </div>
+            
+            <div class="bg-white p-6 rounded-xl shadow-lg mt-8">
+                 <h3 class="text-xl font-bold text-johari-indigo mb-4">Statut du Système</h3>
+                 <p class="text-green-600 font-semibold flex items-center"><i class="fas fa-check-circle mr-2"></i> Services Firebase actifs (Firestore, Auth, Functions).</p>
+                 <p class="text-gray-600 mt-2">Dernière connexion: <span id="last-login">Chargement...</span></p>
+            </div>
+        </section>
+
+        <section id="actualites-section" class="content-section hidden space-y-6">
+            <h2 class="text-3xl font-serif font-semibold text-johari-indigo border-b pb-2">Gestion des Actualités</h2>
+            <button class="bg-johari-amber text-johari-indigo px-5 py-2 rounded-lg font-bold hover:bg-amber-600 transition focus-ring">
+                <i class="fas fa-plus mr-2"></i> Créer une Nouvelle Actualité
+            </button>
+            
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <h3 class="text-xl font-bold text-johari-indigo mb-4">Articles Publiés Récemment</h3>
+                <p id="actualites-list">Chargement des 5 derniers articles...</p>
+            </div>
+        </section>
+
+        <section id="candidatures-section" class="content-section hidden space-y-6">
+             <h2 class="text-3xl font-serif font-semibold text-johari-indigo border-b pb-2">Nouvelles Candidatures</h2>
+             
+             <div class="bg-white p-6 rounded-xl shadow-lg overflow-x-auto">
+                 <table class="min-w-full divide-y divide-gray-200">
+                     <thead class="bg-gray-50">
+                         <tr>
+                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom</th>
+                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">E-mail</th>
+                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Programme</th>
+                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Motivation (Extrait)</th>
+                         </tr>
+                     </thead>
+                     <tbody id="candidatures-table-body" class="bg-white divide-y divide-gray-200">
+                         <tr><td colspan="5" class="px-6 py-4 text-center text-gray-500">Chargement des candidatures...</td></tr>
+                     </tbody>
+                 </table>
+             </div>
+             <p class="text-sm text-gray-500 mt-4">Affichage des 10 dernières candidatures reçues.</p>
+        </section>
+
+    </main>
+
+    <script type="module">
+        // ======================================================================
+        // INTÉGRATION FIREBASE
+        // ======================================================================
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        import { getFirestore, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+        
+        // Configuration de Firebase (VOS CLÉS FOURNIES)
+        const firebaseConfig = {
+          apiKey: "AIzaSyCQdZppl-UsPCXF8iFmXQpcGAFjHEMt838",
+          authDomain: "gestion-saint-charles-lwanga.firebaseapp.com",
+          projectId: "gestion-saint-charles-lwanga",
+          storageBucket: "gestion-saint-charles-lwanga.firebasestorage.app",
+          messagingSenderId: "508302363143",
+          appId: "1:508302363143:web:35c181528dd84def1a78a2"
+        };
+        
+        // Initialisation des services
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const mainContent = document.getElementById('main-content');
+        const userDisplay = document.getElementById('user-display');
+        const logoutBtn = document.getElementById('logout-btn');
+        const candidaturesTableBody = document.getElementById('candidatures-table-body');
+        const statCandidatures = document.getElementById('stat-candidatures');
+        const statActualites = document.getElementById('stat-actualites');
+
+        // ======================================================================
+        // A. CONTRÔLE D'ACCÈS
+        // ======================================================================
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Utilisateur est connecté
+                mainContent.style.visibility = 'visible';
+                userDisplay.textContent = `Connecté en tant que: ${user.email}`;
+                document.getElementById('last-login').textContent = user.metadata.lastSignInTime ? new Date(user.metadata.lastSignInTime).toLocaleString('fr-FR') : 'Non disponible';
+                loadDashboardData();
+            } else {
+                // Utilisateur non connecté, rediriger vers la page de login
+                window.location.href = "admin.html";
+            }
+        });
+
+        // Fonction de Déconnexion
+        logoutBtn.addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+                window.location.href = "admin.html";
+            } catch (error) {
+                console.error("Erreur de déconnexion:", error);
+                alert("Erreur lors de la déconnexion.");
+            }
+        });
+
+        // ======================================================================
+        // B. GESTION DE LA NAVIGATION (Affichage des sections)
+        // ======================================================================
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('data-target');
+                
+                // Masquer toutes les sections
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.add('hidden');
+                });
+                // Afficher la section cible
+                document.getElementById(targetId).classList.remove('hidden');
+
+                // Mettre à jour la classe active dans la sidebar
+                document.querySelectorAll('nav a').forEach(navLink => {
+                    navLink.classList.remove('bg-indigo-700', 'font-bold');
+                });
+                link.classList.add('bg-indigo-700', 'font-bold');
+            });
+        });
+
+        // ======================================================================
+        // C. CHARGEMENT DES DONNÉES DU TABLEAU DE BORD
+        // ======================================================================
+        async function loadDashboardData() {
+            try {
+                // 1. Charger les Candidatures
+                const candidaturesRef = collection(db, "candidatures");
+                const candidaturesQuery = query(candidaturesRef, orderBy("dateSoumission", "desc"), limit(10));
+                const candidaturesSnapshot = await getDocs(candidaturesQuery);
+                const candidatures = candidaturesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+                statCandidatures.textContent = candidatures.length; // NOTE: Idéalement, compter tous les documents
+
+                candidaturesTableBody.innerHTML = candidatures.map(c => {
+                    const date = c.dateSoumission ? new Date(c.dateSoumission.seconds * 1000).toLocaleDateString('fr-FR') : 'N/A';
+                    const motivationExcerpt = c.motivation ? c.motivation.substring(0, 50) + '...' : 'Pas de motivation';
+                    
+                    let programmeLabel = c.programme_choisi || 'Non Spécifié';
+                    if (programmeLabel === 'leadership') programmeLabel = 'Leadership Intégral';
+                    if (programmeLabel === 'entrepreneuriat') programmeLabel = 'Incubateur';
+                    
+                    return `
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${date}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-johari-indigo">${c.nom || 'Anonyme'}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${c.email || 'N/A'}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-xs font-bold text-johari-amber">${programmeLabel}</td>
+                            <td class="px-6 py-4 text-sm text-gray-600">${motivationExcerpt}</td>
+                        </tr>
+                    `;
+                }).join('');
+
+                if (candidatures.length === 0) {
+                     candidaturesTableBody.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center text-gray-600">Aucune candidature récente trouvée.</td></tr>';
+                }
+
+                // 2. Charger les Actualités (pour la stat)
+                const actualitesRef = collection(db, "actualites");
+                const actualitesQuery = query(actualitesRef, orderBy("date", "desc"), limit(5));
+                const actualitesSnapshot = await getDocs(actualitesQuery);
+                const actualites = actualitesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+                statActualites.textContent = actualites.length; // NOTE: Idéalement, compter tous les documents
+
+                // Remplir la liste d'actualités (dans la section B)
+                if (actualites.length > 0) {
+                     document.getElementById('actualites-list').innerHTML = actualites.map(actu => `
+                         <p class="text-sm text-gray-700">
+                            <span class="font-semibold">${actu.titre}</span> (Publié le ${actu.date ? new Date(actu.date.seconds * 1000).toLocaleDateString('fr-FR') : 'N/A'})
+                            <a href="#" class="text-johari-amber ml-2">[Modifier]</a>
+                        </p>
+                     `).join('');
+                } else {
+                     document.getElementById('actualites-list').textContent = "Aucun article publié.";
+                }
+
+                 // 3. Statut des contacts (Placeholder)
+                 document.getElementById('stat-contacts').textContent = '2'; // Simulé
+
+            } catch (error) {
+                console.error("Erreur de chargement des données du tableau de bord:", error);
+                candidaturesTableBody.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center text-red-500">Erreur de connexion à Firestore. Vérifiez les règles de sécurité.</td></tr>';
+                // Masquer les stats en cas d'erreur critique
+                statCandidatures.textContent = 'Erreur';
+                statActualites.textContent = 'Erreur';
+            }
+        }
+    </script>
+</body>
+</html>
