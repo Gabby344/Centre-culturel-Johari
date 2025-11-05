@@ -17,7 +17,28 @@
                     },
                     colors: {
                         'johari-indigo': '#1F2937', 
-                        'johari-amber': '#F59E0B', 
+                        'johari-amber': '#F59E0B',
+                        'johari-gold': '#D97706',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
                     }
                 }
             }
@@ -28,151 +49,335 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     
+    <!-- Remplacez par votre propre Font Awesome Kit -->
     <script src="https://kit.fontawesome.com/votre-kit-code.js" crossorigin="anonymous" defer></script>
 
     <style>
         body {
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            scroll-behavior: smooth;
         }
+
+        /* Header avec effet de transparence au défilement */
+        header {
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        header.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animation d'entrée pour les éléments */
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in-element.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Effet de brillance sur les boutons */
+        .shine-effect {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shine-effect::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+            transition: all 0.6s;
+            opacity: 0;
+        }
+
+        .shine-effect:hover::after {
+            opacity: 1;
+            transform: rotate(30deg) translate(10%, 10%);
+        }
+
+        /* Effet de carte avec ombre portée */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Amélioration des transitions de liens */
+        .transition-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .transition-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #F59E0B;
+            transition: width 0.3s ease;
+        }
+
+        .transition-link:hover::after {
+            width: 100%;
+        }
+
+        /* Amélioration de l'accessibilité */
         .focus-ring:focus {
             outline: 3px solid theme('colors.johari-amber');
             outline-offset: 2px;
             border-color: theme('colors.johari-amber');
         }
-        .transition-link {
-            transition: color 0.3s ease-in-out;
+
+        /* Barre de défilement personnalisée */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #F59E0B;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D97706;
+        }
+
         /* Style pour l'image de la mission */
         #mission-banner {
              background-image: linear-gradient(rgba(31, 41, 55, 0.8), rgba(31, 41, 55, 0.8)), url('images/johari-team-placeholder.jpg');
              background-size: cover;
              background-position: center;
         }
+
+        /* Effet de parallax pour la bannière */
+        .parallax-banner {
+            background-attachment: fixed;
+        }
+
+        /* Animation des icônes de valeurs */
+        .value-icon {
+            transition: all 0.4s ease;
+        }
+
+        .value-card:hover .value-icon {
+            transform: scale(1.1);
+            color: theme('colors.johari-amber');
+        }
+
+        /* Effet de flou sur les images de profil */
+        .profile-image {
+            transition: all 0.4s ease;
+            filter: grayscale(20%);
+        }
+
+        .profile-card:hover .profile-image {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body class="antialiased text-gray-800 bg-gray-50 font-sans">
 
-    <header class="sticky top-0 z-50 bg-white shadow-lg"> 
-        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="/" class="text-3xl font-serif font-extrabold text-johari-indigo tracking-wider focus-ring">
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md transition-all duration-500">
+        <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="text-3xl font-serif font-extrabold text-johari-indigo tracking-wider focus-ring transition-transform duration-300 hover:scale-105">
                 JOHARI
                 <span class="block text-xs font-medium text-johari-amber uppercase tracking-widest">L'shi</span>
             </a>
             
             <ul class="hidden md:flex space-x-8 text-lg">
-                <li><a href="#" class="transition-link text-johari-amber font-bold focus-ring">À Propos</a></li>
-                <li><a href="programmes.html" class="transition-link hover:text-johari-amber focus-ring">Programmes</a></li>
-                <li><a href="actualites.html" class="transition-link hover:text-johari-amber focus-ring">Actualités</a></li>
-                <li><a href="index.html#contact" class="transition-link hover:text-johari-amber focus-ring">Contact</a></li>
+                <li><a href="#" class="transition-link text-johari-amber font-bold py-2">À Propos</a></li>
+                <li><a href="programmes.html" class="transition-link hover:text-johari-amber focus-ring py-2">Programmes</a></li>
+                <li><a href="actualites.html" class="transition-link hover:text-johari-amber focus-ring py-2">Actualités</a></li>
+                <li><a href="index.html#contact" class="transition-link hover:text-johari-amber focus-ring py-2">Contact</a></li>
             </ul>
             
-            <a href="candidature.html" class="hidden md:block bg-johari-amber text-white px-6 py-2 rounded-full font-bold transition hover:bg-amber-600 shadow-md focus-ring">
+            <a href="candidature.html" class="hidden md:block bg-johari-amber text-white px-6 py-2 rounded-full font-bold transition-all duration-300 hover:bg-johari-gold shadow-md hover:shadow-lg focus-ring shine-effect">
                 Candidature
             </a>
 
-            <button id="mobile-menu-btn" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden text-johari-indigo focus-ring">
-                <svg id="icon-burger" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            <button id="mobile-menu-btn" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden text-johari-indigo focus-ring p-2 rounded-lg transition-colors duration-300 hover:bg-gray-100">
+                <svg id="icon-burger" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                <svg id="icon-close" class="w-6 h-6 hidden transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </nav>
     </header>
     
-    <nav id="mobile-menu" class="hidden md:hidden bg-johari-indigo text-white p-4" aria-label="Menu principal mobile">
-        <a href="#top" class="block py-2 text-amber-300 font-bold hover:bg-indigo-800 transition focus-ring">À Propos</a>
-        <a href="programmes.html" class="block py-2 hover:bg-indigo-800 transition focus-ring">Programmes</a>
-        <a href="actualites.html" class="block py-2 hover:bg-indigo-800 transition focus-ring">Actualités</a>
-        <a href="index.html#contact" class="block py-2 hover:bg-indigo-800 transition focus-ring">Contact</a>
-        <a href="candidature.html" class="block py-2 mt-2 text-amber-300 font-bold border-t border-indigo-800 focus-ring">Candidature</a>
+    <nav id="mobile-menu" class="hidden md:hidden bg-johari-indigo/95 backdrop-blur-md text-white p-4 transition-all duration-500" aria-label="Menu principal mobile">
+        <a href="#top" class="block py-3 px-4 rounded-lg transition-all duration-300 hover:bg-indigo-800 focus-ring text-amber-300 font-bold">À Propos</a>
+        <a href="programmes.html" class="block py-3 px-4 rounded-lg transition-all duration-300 hover:bg-indigo-800 focus-ring">Programmes</a>
+        <a href="actualites.html" class="block py-3 px-4 rounded-lg transition-all duration-300 hover:bg-indigo-800 focus-ring">Actualités</a>
+        <a href="index.html#contact" class="block py-3 px-4 rounded-lg transition-all duration-300 hover:bg-indigo-800 focus-ring">Contact</a>
+        <a href="candidature.html" class="block py-3 px-4 mt-2 text-amber-300 font-bold border-t border-indigo-800 focus-ring rounded-lg transition-all duration-300 hover:bg-indigo-800">Candidature</a>
     </nav>
 
     <main>
-        <section id="banner" class="bg-johari-indigo py-20 text-white text-center">
-            <div class="container mx-auto px-4 max-w-4xl">
-                <p class="text-lg font-semibold text-johari-amber uppercase tracking-widest mb-2">Notre Histoire, Notre Vision</p>
-                <h1 class="text-5xl md:text-6xl font-serif font-extrabold mb-4">Le Centre Johari : Un Foyer d'Excellence à Lubumbashi</h1>
-                <p class="text-xl text-gray-300">
+        <!-- Bannière Hero avec effet parallax -->
+        <section id="banner" class="bg-johari-indigo py-20 text-white text-center parallax-banner relative overflow-hidden">
+            <!-- Éléments décoratifs animés -->
+            <div class="absolute top-10 left-10 w-20 h-20 bg-johari-amber/10 rounded-full animate-pulse-slow"></div>
+            <div class="absolute bottom-10 right-10 w-16 h-16 bg-johari-amber/20 rounded-full animate-float"></div>
+            <div class="absolute top-1/2 left-1/4 w-12 h-12 bg-johari-amber/15 rounded-full animate-float" style="animation-delay: 2s;"></div>
+            
+            <div class="container mx-auto px-4 max-w-4xl relative z-10">
+                <p class="text-lg font-semibold text-johari-amber uppercase tracking-widest mb-2 animate-fade-in">Notre Histoire, Notre Vision</p>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-extrabold mb-6 animate-slide-up">Le Centre Johari : Un Foyer d'Excellence à Lubumbashi</h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto animate-slide-up" style="animation-delay: 0.2s">
                     Depuis sa fondation, Johari s'engage à former une nouvelle génération de leaders compétents et éthiques, prêts à transformer positivement la République Démocratique du Congo.
                 </p>
+                
+                <!-- Indicateur de défilement -->
+                <div class="mt-12 animate-bounce">
+                    <a href="#mission-detail" class="text-white text-2xl focus-ring p-2 rounded-full transition-all duration-300 hover:text-johari-amber inline-block">
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
             </div>
         </section>
 
+        <!-- Section Mission détaillée -->
         <section id="mission-detail" class="py-16 md:py-24 bg-white">
             <div class="container mx-auto px-4 max-w-6xl">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <div class="space-y-6">
-                        <h2 class="text-4xl font-serif font-bold text-johari-indigo mb-4">Notre Raison d'Être</h2>
-                        <p class="text-gray-700 text-lg">
-                            La mission du Centre Johari est de promouvoir le **développement intégral** de la personne, en mettant l'accent sur l'excellence professionnelle, le sens de la responsabilité et l'engagement civique. Nous offrons un environnement académique stimulant qui encourage l'esprit critique et la recherche de la vérité.
+                    <div class="space-y-6 fade-in-element">
+                        <h2 class="text-3xl md:text-4xl font-serif font-bold text-johari-indigo mb-4">Notre Raison d'Être</h2>
+                        <p class="text-gray-700 text-lg leading-relaxed">
+                            La mission du Centre Johari est de promouvoir le <strong class="text-johari-amber">développement intégral</strong> de la personne, en mettant l'accent sur l'excellence professionnelle, le sens de la responsabilité et l'engagement civique. Nous offrons un environnement académique stimulant qui encourage l'esprit critique et la recherche de la vérité.
                         </p>
                         
-                        <h3 class="text-2xl font-bold text-johari-amber mt-8 flex items-center"><i class="fas fa-handshake text-johari-indigo mr-3"></i> Soutien Spirituel et Éthique</h3>
-                        <p class="text-gray-600">
-                            Fidèles à notre inspiration chrétienne (Opus Dei), nous proposons des moyens de formation spirituelle et morale pour aider chacun à intégrer l'éthique dans sa vie professionnelle et personnelle. Ces activités sont proposées dans le respect total de la liberté de conscience de chacun.
-                        </p>
+                        <div class="bg-amber-50 border-l-4 border-johari-amber p-6 rounded-r-lg mt-8 fade-in-element" style="animation-delay: 0.2s">
+                            <h3 class="text-xl font-bold text-johari-indigo flex items-center mb-3">
+                                <i class="fas fa-handshake text-johari-amber mr-3 text-2xl"></i> 
+                                Soutien Spirituel et Éthique
+                            </h3>
+                            <p class="text-gray-700">
+                                Fidèles à notre inspiration chrétienne (Opus Dei), nous proposons des moyens de formation spirituelle et morale pour aider chacun à intégrer l'éthique dans sa vie professionnelle et personnelle. Ces activités sont proposées dans le respect total de la liberté de conscience de chacun.
+                            </p>
+                        </div>
                         
-                        <a href="index.html#contact" class="inline-block mt-6 text-johari-indigo border-b-2 border-johari-amber hover:text-johari-amber font-semibold focus-ring transition duration-300">
-                            Rejoignez notre communauté &rarr;
+                        <a href="index.html#contact" class="inline-flex items-center mt-6 text-johari-indigo border-b-2 border-johari-amber hover:text-johari-amber font-semibold focus-ring transition duration-300 group">
+                            Rejoignez notre communauté
+                            <svg class="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
                         </a>
                     </div>
                     
-                    <div class="h-96 rounded-xl overflow-hidden shadow-2xl">
-                         <img src="images/johari-class-placeholder.jpg" alt="Salle de classe moderne au Centre Johari" class="w-full h-full object-cover transition duration-700 hover:scale-105">
+                    <div class="h-96 rounded-xl overflow-hidden shadow-2xl card-hover fade-in-element" style="animation-delay: 0.3s">
+                         <img src="images/johari-class-placeholder.jpg" alt="Salle de classe moderne au Centre Johari" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="valeurs-approfondies" class="py-16 md:py-24 bg-johari-indigo text-white">
-            <div class="container mx-auto px-4 max-w-6xl">
-                <h2 class="text-4xl font-serif font-bold text-center text-johari-amber mb-12">Les Valeurs qui Nous Guident</h2>
+        <!-- Section Valeurs approfondies -->
+        <section id="valeurs-approfondies" class="py-16 md:py-24 bg-johari-indigo text-white relative overflow-hidden">
+            <!-- Éléments décoratifs -->
+            <div class="absolute -top-20 -right-20 w-40 h-40 bg-johari-amber/5 rounded-full"></div>
+            <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-johari-amber/10 rounded-full"></div>
+            
+            <div class="container mx-auto px-4 max-w-6xl relative z-10">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-johari-amber mb-4 fade-in-element">Les Valeurs qui Nous Guident</h2>
+                <p class="text-xl text-center text-gray-300 mb-12 max-w-3xl mx-auto fade-in-element">
+                    Notre approche éducative repose sur des principes fondamentaux qui façonnent l'expérience d'apprentissage au Centre Johari
+                </p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="text-center p-6 border-b-4 border-johari-amber">
-                        <i class="fas fa-lightbulb text-4xl mb-3"></i>
-                        <h3 class="text-xl font-bold mb-2">Service</h3>
+                    <div class="text-center p-6 border-b-4 border-johari-amber rounded-lg bg-johari-indigo/80 backdrop-blur-sm card-hover value-card fade-in-element">
+                        <div class="w-16 h-16 bg-johari-amber/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-lightbulb text-2xl text-johari-amber value-icon"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Service</h3>
                         <p class="text-gray-300">Mettre ses talents au service de la société, et considérer son travail comme une contribution essentielle.</p>
                     </div>
-                    <div class="text-center p-6 border-b-4 border-johari-amber">
-                        <i class="fas fa-globe-africa text-4xl mb-3"></i>
-                        <h3 class="text-xl font-bold mb-2">Ancrage Local</h3>
+                    
+                    <div class="text-center p-6 border-b-4 border-johari-amber rounded-lg bg-johari-indigo/80 backdrop-blur-sm card-hover value-card fade-in-element" style="animation-delay: 0.1s">
+                        <div class="w-16 h-16 bg-johari-amber/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-globe-africa text-2xl text-johari-amber value-icon"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Ancrage Local</h3>
                         <p class="text-gray-300">Contribuer au développement socio-économique et culturel de Lubumbashi et de la RDC.</p>
                     </div>
-                    <div class="text-center p-6 border-b-4 border-johari-amber">
-                        <i class="fas fa-book-open text-4xl mb-3"></i>
-                        <h3 class="text-xl font-bold mb-2">Rigueur</h3>
+                    
+                    <div class="text-center p-6 border-b-4 border-johari-amber rounded-lg bg-johari-indigo/80 backdrop-blur-sm card-hover value-card fade-in-element" style="animation-delay: 0.2s">
+                        <div class="w-16 h-16 bg-johari-amber/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-book-open text-2xl text-johari-amber value-icon"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Rigueur</h3>
                         <p class="text-gray-300">Encourager une méthodologie de travail rigoureuse et une quête constante du savoir.</p>
                     </div>
-                    <div class="text-center p-6 border-b-4 border-johari-amber">
-                        <i class="fas fa-users text-4xl mb-3"></i>
-                        <h3 class="text-xl font-bold mb-2">Liberté</h3>
+                    
+                    <div class="text-center p-6 border-b-4 border-johari-amber rounded-lg bg-johari-indigo/80 backdrop-blur-sm card-hover value-card fade-in-element" style="animation-delay: 0.3s">
+                        <div class="w-16 h-16 bg-johari-amber/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-users text-2xl text-johari-amber value-icon"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Liberté</h3>
                         <p class="text-gray-300">Respecter et promouvoir la liberté individuelle, la diversité des opinions et la tolérance.</p>
                     </div>
                 </div>
             </div>
         </section>
         
+        <!-- Section Équipe de direction -->
         <section id="equipe" class="py-16 md:py-24 bg-gray-50">
              <div class="container mx-auto px-4 max-w-6xl">
-                <h2 class="text-4xl font-serif font-bold text-center text-johari-indigo mb-16">Notre Équipe de Direction</h2>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-johari-indigo mb-4 fade-in-element">Notre Équipe de Direction</h2>
+                <p class="text-xl text-center text-gray-600 mb-16 max-w-3xl mx-auto fade-in-element">
+                    Des professionnels dévoués à l'excellence académique et au développement intégral de chaque étudiant
+                </p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                    <div class="text-center p-6 bg-white rounded-xl shadow-lg border-t-2 border-johari-amber">
-                        <img src="images/placeholder-profile1.jpg" alt="Photo du Directeur" class="w-28 h-28 object-cover rounded-full mx-auto mb-4 border-4 border-johari-amber/50">
+                    <div class="text-center p-6 bg-white rounded-xl shadow-lg border-t-2 border-johari-amber card-hover profile-card fade-in-element">
+                        <div class="relative inline-block mb-4">
+                            <img src="images/placeholder-profile1.jpg" alt="Photo du Directeur" class="w-28 h-28 object-cover rounded-full mx-auto border-4 border-johari-amber/50 profile-image">
+                            <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-johari-amber rounded-full flex items-center justify-center">
+                                <i class="fas fa-crown text-white text-xs"></i>
+                            </div>
+                        </div>
                         <h3 class="text-xl font-bold text-johari-indigo">Dr. [Nom du Directeur]</h3>
                         <p class="text-johari-amber mb-2">Directeur Général</p>
                         <p class="text-sm text-gray-600">Expert en Leadership et Gouvernance. [5 mots clés sur son expertise].</p>
                     </div>
                     
-                    <div class="text-center p-6 bg-white rounded-xl shadow-lg border-t-2 border-johari-amber">
-                        <img src="images/placeholder-profile2.jpg" alt="Photo du Responsable Académique" class="w-28 h-28 object-cover rounded-full mx-auto mb-4 border-4 border-johari-amber/50">
+                    <div class="text-center p-6 bg-white rounded-xl shadow-lg border-t-2 border-johari-amber card-hover profile-card fade-in-element" style="animation-delay: 0.1s">
+                        <div class="relative inline-block mb-4">
+                            <img src="images/placeholder-profile2.jpg" alt="Photo du Responsable Académique" class="w-28 h-28 object-cover rounded-full mx-auto border-4 border-johari-amber/50 profile-image">
+                            <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-johari-amber rounded-full flex items-center justify-center">
+                                <i class="fas fa-graduation-cap text-white text-xs"></i>
+                            </div>
+                        </div>
                         <h3 class="text-xl font-bold text-johari-indigo">Mme [Nom du Responsable]</h3>
                         <p class="text-johari-amber mb-2">Responsable Académique</p>
                         <p class="text-sm text-gray-600">Spécialiste en pédagogie et innovation éducative.</p>
                     </div>
                     
-                     <div class="text-center p-6 bg-white rounded-xl shadow-lg border-t-2 border-johari-amber">
-                        <img src="images/placeholder-profile3.jpg" alt="Photo du Responsable Communautaire" class="w-28 h-28 object-cover rounded-full mx-auto mb-4 border-4 border-johari-amber/50">
+                     <div class="text-center p-6 bg-white rounded-xl shadow-lg border-t-2 border-johari-amber card-hover profile-card fade-in-element" style="animation-delay: 0.2s">
+                        <div class="relative inline-block mb-4">
+                            <img src="images/placeholder-profile3.jpg" alt="Photo du Responsable Communautaire" class="w-28 h-28 object-cover rounded-full mx-auto border-4 border-johari-amber/50 profile-image">
+                            <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-johari-amber rounded-full flex items-center justify-center">
+                                <i class="fas fa-palette text-white text-xs"></i>
+                            </div>
+                        </div>
                         <h3 class="text-xl font-bold text-johari-indigo">M. [Nom du Responsable]</h3>
                         <p class="text-johari-amber mb-2">Coordination des Activités Culturelles</p>
                         <p class="text-sm text-gray-600">Promoteur de l'art et de la culture Congolaise.</p>
@@ -181,16 +386,25 @@
             </div>
         </section>
         
-        <section id="cta-contact" class="py-16 bg-johari-amber text-johari-indigo">
-            <div class="container mx-auto px-4 text-center">
-                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4">Prêt à faire partie de l'histoire de Johari ?</h2>
-                <p class="text-xl mb-8">Déposez votre candidature ou contactez-nous pour en savoir plus sur nos engagements.</p>
-                <a href="candidature.html" class="bg-johari-indigo text-white text-lg px-8 py-3 rounded-full font-bold transition duration-300 shadow-lg transform hover:scale-105 inline-block focus-ring mr-4">
-                    Soumettre sa Candidature
-                </a>
-                 <a href="index.html#contact" class="bg-white text-johari-indigo text-lg px-8 py-3 rounded-full font-bold transition duration-300 shadow-lg transform hover:scale-105 inline-block focus-ring">
-                    Nous Contacter
-                </a>
+        <!-- Section CTA Contact -->
+        <section id="cta-contact" class="py-16 bg-johari-amber text-johari-indigo relative overflow-hidden">
+            <!-- Éléments décoratifs -->
+            <div class="absolute top-0 left-0 w-full h-full opacity-10">
+                <div class="absolute top-10 left-10 w-32 h-32 bg-johari-indigo rounded-full"></div>
+                <div class="absolute bottom-10 right-10 w-40 h-40 bg-johari-indigo rounded-full"></div>
+            </div>
+            
+            <div class="container mx-auto px-4 text-center relative z-10">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4 fade-in-element">Prêt à faire partie de l'histoire de Johari ?</h2>
+                <p class="text-xl mb-8 max-w-2xl mx-auto fade-in-element">Déposez votre candidature ou contactez-nous pour en savoir plus sur nos engagements.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4 fade-in-element" style="animation-delay: 0.2s">
+                    <a href="candidature.html" class="bg-johari-indigo text-white text-lg px-8 py-3 rounded-full font-bold transition-all duration-300 shadow-lg transform hover:scale-105 inline-block focus-ring shine-effect">
+                        Soumettre sa Candidature
+                    </a>
+                    <a href="index.html#contact" class="bg-white text-johari-indigo text-lg px-8 py-3 rounded-full font-bold transition-all duration-300 shadow-lg transform hover:scale-105 inline-block focus-ring">
+                        Nous Contacter
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -198,12 +412,12 @@
 
     <footer class="bg-johari-indigo text-gray-300 py-12">
         <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-                <a href="/" class="text-2xl font-serif font-extrabold text-white tracking-wider focus-ring">JOHARI</a>
+            <div class="fade-in-element">
+                <a href="/" class="text-2xl font-serif font-extrabold text-white tracking-wider focus-ring transition-transform duration-300 hover:scale-105 inline-block">JOHARI</a>
                 <p class="mt-3 text-sm">Former, Inspirer, Bâtir l'avenir de Lubumbashi.</p>
             </div>
             
-            <div>
+            <div class="fade-in-element" style="animation-delay: 0.1s">
                 <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Plan du Site</h4>
                 <ul class="space-y-2 text-sm">
                     <li><a href="index.html#mission" class="transition-link hover:text-johari-amber focus-ring">Mission</a></li>
@@ -213,7 +427,7 @@
                 </ul>
             </div>
             
-            <div>
+            <div class="fade-in-element" style="animation-delay: 0.2s">
                 <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Nous Trouver</h4>
                 <p class="text-sm">
                     Adresse complète du Centre Johari, <br>
@@ -223,16 +437,17 @@
                 </p>
             </div>
             
-            <div>
+            <div class="fade-in-element" style="animation-delay: 0.3s">
                 <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Réseaux Sociaux</h4>
                 <div class="flex space-x-4">
-                    <a href="#" class="text-xl transition-link hover:text-johari-amber focus-ring"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-xl transition-link hover:text-johari-amber focus-ring"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-xl transition-link hover:text-johari-amber focus-ring p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-xl transition-link hover:text-johari-amber focus-ring p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-xl transition-link hover:text-johari-amber focus-ring p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300"><i class="fab fa-instagram"></i></a>
                 </div>
                 <a href="/admin" class="mt-4 block text-xs text-gray-500 transition-link hover:text-johari-amber focus-ring">Espace Administration</a>
             </div>
         </div>
-        <div class="text-center text-xs mt-8 border-t border-indigo-800 pt-6">
+        <div class="text-center text-xs mt-8 border-t border-indigo-800 pt-6 fade-in-element">
             &copy; <span id="current-year"></span> Centre Culturel & Universitaire Johari. Tous droits réservés.
         </div>
     </footer>
@@ -240,6 +455,7 @@
     <script>
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
+        // 1. LOGIQUE DU MENU MOBILE
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const iconBurger = document.getElementById('icon-burger');
@@ -251,6 +467,8 @@
             iconBurger.classList.toggle('hidden', !isHidden);
             iconClose.classList.toggle('hidden', isHidden);
         });
+
+        // Fermer le menu après un clic sur un lien (sur mobile)
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
@@ -258,6 +476,41 @@
                 iconBurger.classList.remove('hidden');
                 iconClose.classList.add('hidden');
             });
+        });
+
+        // 2. EFFET DE TRANSPARENCE AU DÉFILEMENT SUR LE HEADER
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // 3. ANIMATION AU DÉFILEMENT DES ÉLÉMENTS
+        const fadeElements = document.querySelectorAll('.fade-in-element');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+        
+        // Vérifier au chargement et au défilement
+        window.addEventListener('scroll', fadeInOnScroll);
+        window.addEventListener('load', fadeInOnScroll);
+
+        // 4. ANIMATION DES LIENS AVEC FLÈCHES
+        document.querySelectorAll('a').forEach(link => {
+            if (link.textContent.includes('→') || link.textContent.includes('&rarr;')) {
+                link.classList.add('group');
+            }
         });
     </script>
 </body>
