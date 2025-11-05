@@ -7,90 +7,321 @@
     <meta name="description" content="Retrouvez toutes les annonces, événements et nouvelles du Centre Johari à Lubumbashi : conférences, cérémonies et lancements de programmes.">
     
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Configuration Tailwind personnalisée
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        'johari-indigo': '#1F2937',
+                        'johari-amber': '#F59E0B',
+                        'johari-gold': '#D97706',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     
-    <script src="https://kit.fontawesome.com/votre-kit-code.js" crossorigin="anonymous" async></script>
+    <!-- Remplacez par votre propre Font Awesome Kit -->
+    <script src="https://kit.fontawesome.com/votre-kit-code.js" crossorigin="anonymous" defer></script>
 
     <style>
-        /* Styles CSS copiés de index.html pour la cohérence */
-        :root {
-            --font-serif: 'Playfair Display', serif;
-            --font-sans: 'Montserrat', sans-serif;
-        }
-        .font-serif { font-family: var(--font-serif); }
-        .font-sans { font-family: var(--font-sans); }
+        /* CSS personnalisée pour les effets avancés */
         body {
-            font-family: var(--font-sans);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            scroll-behavior: smooth;
         }
+
+        /* Header avec effet de transparence au défilement */
+        header {
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        header.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animation d'entrée pour les éléments */
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in-element.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Effet de brillance sur les boutons */
+        .shine-effect {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shine-effect::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+            transition: all 0.6s;
+            opacity: 0;
+        }
+
+        .shine-effect:hover::after {
+            opacity: 1;
+            transform: rotate(30deg) translate(10%, 10%);
+        }
+
+        /* Effet de carte avec ombre portée */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Amélioration des transitions de liens */
         .transition-link {
-            transition: color 0.3s ease-in-out;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .transition-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #F59E0B;
+            transition: width 0.3s ease;
+        }
+
+        .transition-link:hover::after {
+            width: 100%;
+        }
+
+        /* Amélioration de l'accessibilité */
+        .focus-ring:focus {
+            outline: 3px solid theme('colors.johari-amber');
+            outline-offset: 2px;
+            border-color: theme('colors.johari-amber');
+        }
+
+        /* Barre de défilement personnalisée */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #F59E0B;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D97706;
+        }
+
+        /* Filtres pour les cartes d'actualités */
+        .news-filter-btn {
+            transition: all 0.3s ease;
+        }
+
+        .news-filter-btn.active {
+            background-color: theme('colors.johari-indigo');
+            color: white;
+        }
+
+        /* Animation de chargement améliorée */
+        .loading-dots {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+        .loading-dots div {
+            position: absolute;
+            top: 33px;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: theme('colors.johari-amber');
+            animation-timing-function: cubic-bezier(0, 1, 1, 0);
+        }
+        .loading-dots div:nth-child(1) {
+            left: 8px;
+            animation: loading-dots1 0.6s infinite;
+        }
+        .loading-dots div:nth-child(2) {
+            left: 8px;
+            animation: loading-dots2 0.6s infinite;
+        }
+        .loading-dots div:nth-child(3) {
+            left: 32px;
+            animation: loading-dots2 0.6s infinite;
+        }
+        .loading-dots div:nth-child(4) {
+            left: 56px;
+            animation: loading-dots3 0.6s infinite;
+        }
+        @keyframes loading-dots1 {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+        @keyframes loading-dots3 {
+            0% { transform: scale(1); }
+            100% { transform: scale(0); }
+        }
+        @keyframes loading-dots2 {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(24px, 0); }
         }
     </style>
 </head>
-<body class="antialiased text-gray-800 bg-gray-50">
+<body class="antialiased text-gray-800 bg-gray-50 font-sans">
 
-    <header class="sticky top-0 z-50 bg-white shadow-md">
-        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="/" class="text-3xl font-serif font-extrabold text-indigo-900 tracking-wider">
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md transition-all duration-500">
+        <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="text-3xl font-serif font-extrabold text-johari-indigo tracking-wider focus-ring transition-transform duration-300 hover:scale-105">
                 JOHARI
-                <span class="block text-xs font-sans font-medium text-amber-500 uppercase tracking-widest">L'shi</span>
+                <span class="block text-xs font-medium text-johari-amber uppercase tracking-widest">L'shi</span>
             </a>
             
             <ul class="hidden md:flex space-x-8 text-lg">
-                <li><a href="index.html#mission" class="transition-link hover:text-amber-500">Mission</a></li>
-                <li><a href="programmes.html" class="transition-link hover:text-amber-500">Programmes</a></li>
-                <li><a href="#actualites" class="transition-link text-amber-500 font-bold">Actualités</a></li>
-                <li><a href="index.html#contact" class="transition-link hover:text-amber-500">Contact</a></li>
+                <li><a href="index.html#mission" class="transition-link hover:text-johari-amber focus-ring py-2">Mission</a></li>
+                <li><a href="programmes.html" class="transition-link hover:text-johari-amber focus-ring py-2">Programmes</a></li>
+                <li><a href="#actualites" class="transition-link text-johari-amber font-bold py-2">Actualités</a></li>
+                <li><a href="index.html#contact" class="transition-link hover:text-johari-amber focus-ring py-2">Contact</a></li>
             </ul>
             
-            <a href="#candidature" class="hidden md:block bg-amber-500 text-white px-6 py-2 rounded-full font-bold transition hover:bg-amber-600 shadow-md">
+            <a href="candidature.html" class="hidden md:block bg-johari-amber text-white px-6 py-2 rounded-full font-bold transition-all duration-300 hover:bg-johari-gold shadow-md hover:shadow-lg focus-ring shine-effect">
                 Candidature
             </a>
 
-            <button id="mobile-menu-btn" class="md:hidden text-indigo-900 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            <button id="mobile-menu-btn" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden text-johari-indigo focus-ring p-2 rounded-lg transition-colors duration-300 hover:bg-gray-100">
+                <svg id="icon-burger" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                <svg id="icon-close" class="w-6 h-6 hidden transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </nav>
     </header>
     
-    <nav id="mobile-menu" class="hidden md:hidden bg-indigo-900 text-white p-4">
-        <a href="index.html#mission" class="block py-2 hover:bg-indigo-800 transition">Mission</a>
-        <a href="programmes.html" class="block py-2 hover:bg-indigo-800 transition">Programmes</a>
-        <a href="#actualites" class="block py-2 text-amber-300 font-bold hover:bg-indigo-800 transition">Actualités</a>
-        <a href="index.html#contact" class="block py-2 hover:bg-indigo-800 transition">Contact</a>
-        <a href="#candidature" class="block py-2 mt-2 text-amber-300 font-bold border-t border-indigo-800">Candidature</a>
+    <nav id="mobile-menu" class="hidden md:hidden bg-johari-indigo/95 backdrop-blur-md text-white p-4 transition-all duration-500" aria-label="Menu principal mobile">
+        <a href="index.html#mission" class="block py-3 px-4 rounded-lg transition-all duration-300 hover:bg-indigo-800 focus-ring">Mission</a>
+        <a href="programmes.html" class="block py-3 px-4 rounded-lg transition-all duration-300 hover:bg-indigo-800 focus-ring">Programmes</a>
+        <a href="#actualites" class="block py-3 px-4 rounded-lg transition-all duration-300 hover:bg-indigo-800 focus-ring text-amber-300 font-bold">Actualités</a>
+        <a href="index.html#contact" class="block py-3 px-4 rounded-lg transition-all duration-300 hover:bg-indigo-800 focus-ring">Contact</a>
+        <a href="candidature.html" class="block py-3 px-4 mt-2 text-amber-300 font-bold border-t border-indigo-800 focus-ring rounded-lg transition-all duration-300 hover:bg-indigo-800">Candidature</a>
     </nav>
 
     <main class="py-16 md:py-24">
         <section id="actualites-list" class="container mx-auto px-4">
-            <header class="text-center mb-16">
-                <h1 class="text-5xl font-serif font-extrabold text-indigo-900 mb-4">Toutes les Nouvelles du Centre</h1>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            <header class="text-center mb-16 animate-fade-in">
+                <h1 class="text-4xl md:text-5xl font-serif font-extrabold text-johari-indigo mb-4 animate-slide-up">Toutes les Nouvelles du Centre</h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto animate-slide-up" style="animation-delay: 0.2s">
                     Restez informés des événements, conférences, et des succès de nos étudiants et formateurs.
                 </p>
+                
+                <!-- Filtres d'actualités -->
+                <div class="flex flex-wrap justify-center gap-4 mt-8 animate-slide-up" style="animation-delay: 0.4s">
+                    <button class="news-filter-btn bg-johari-indigo text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 active focus-ring" data-filter="all">
+                        Toutes les actualités
+                    </button>
+                    <button class="news-filter-btn bg-gray-200 text-johari-indigo px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:bg-gray-300 focus-ring" data-filter="evenements">
+                        Événements
+                    </button>
+                    <button class="news-filter-btn bg-gray-200 text-johari-indigo px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:bg-gray-300 focus-ring" data-filter="formations">
+                        Formations
+                    </button>
+                    <button class="news-filter-btn bg-gray-200 text-johari-indigo px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:bg-gray-300 focus-ring" data-filter="succes">
+                        Succès étudiants
+                    </button>
+                </div>
             </header>
 
             <div id="actualites-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <p class="col-span-full text-center text-gray-500" id="loading-message">Chargement de toutes les actualités...</p>
+                <!-- Message de chargement amélioré -->
+                <div class="col-span-full flex flex-col items-center justify-center py-12" id="loading-message">
+                    <div class="loading-dots mb-4">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <p class="text-lg text-gray-500">Chargement des actualités...</p>
+                </div>
             </div>
             
-            <div id="error-message" class="hidden text-center mt-8 p-4 bg-red-100 border border-red-400 text-red-700 rounded" role="alert">
-                <p class="font-bold">Erreur de connexion</p>
-                <p>Impossible de charger les actualités depuis la base de données. Veuillez réessayer plus tard.</p>
+            <!-- Message d'erreur amélioré -->
+            <div id="error-message" class="hidden col-span-full text-center mt-8 p-6 bg-red-50 border border-red-200 text-red-700 rounded-xl shadow-md" role="alert">
+                <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-exclamation-triangle text-2xl text-red-500"></i>
+                </div>
+                <p class="font-bold text-lg mb-2">Erreur de connexion</p>
+                <p class="mb-4">Impossible de charger les actualités depuis la base de données.</p>
+                <button id="retry-button" class="bg-red-600 text-white px-6 py-2 rounded-lg font-semibold transition-all duration-300 hover:bg-red-700 focus-ring">
+                    Réessayer
+                </button>
             </div>
 
+            <!-- Pagination -->
+            <div id="pagination" class="hidden flex justify-center items-center mt-12 space-x-2">
+                <button id="prev-page" class="bg-gray-200 text-johari-indigo px-4 py-2 rounded-lg font-semibold transition-all duration-300 hover:bg-gray-300 focus-ring disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    <i class="fas fa-chevron-left mr-2"></i>Précédent
+                </button>
+                <div id="page-numbers" class="flex space-x-2"></div>
+                <button id="next-page" class="bg-gray-200 text-johari-indigo px-4 py-2 rounded-lg font-semibold transition-all duration-300 hover:bg-gray-300 focus-ring">
+                    Suivant<i class="fas fa-chevron-right ml-2"></i>
+                </button>
+            </div>
         </section>
         
-        <section id="partenariat" class="py-16 bg-indigo-800 text-white mt-16">
+        <section id="partenariat" class="py-16 bg-johari-indigo text-white mt-16">
             <div class="container mx-auto px-4 text-center">
-                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4">Soutenez le Prochain Événement</h2>
-                <p class="text-xl mb-8">Devenez sponsor de nos conférences et ateliers de leadership.</p>
-                <a href="index.html#contact" class="bg-white text-indigo-800 text-lg px-8 py-3 rounded-full font-bold transition duration-300 shadow-lg transform hover:scale-105 inline-block">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4 fade-in-element">Soutenez le Prochain Événement</h2>
+                <p class="text-xl mb-8 fade-in-element">Devenez sponsor de nos conférences et ateliers de leadership.</p>
+                <a href="index.html#contact" class="bg-white text-johari-indigo text-lg px-8 py-3 rounded-full font-bold transition-all duration-300 shadow-lg transform hover:scale-105 inline-block focus-ring shine-effect fade-in-element">
                     Collaborer avec Johari
                 </a>
             </div>
@@ -98,23 +329,23 @@
 
     </main>
 
-    <footer class="bg-indigo-900 text-gray-300 py-12">
+    <footer class="bg-johari-indigo text-gray-300 py-12">
         <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-                <a href="/" class="text-2xl font-serif font-extrabold text-white tracking-wider">JOHARI</a>
+            <div class="fade-in-element">
+                <a href="/" class="text-2xl font-serif font-extrabold text-white tracking-wider focus-ring transition-transform duration-300 hover:scale-105 inline-block">JOHARI</a>
                 <p class="mt-3 text-sm">Former, Inspirer, Bâtir l'avenir de Lubumbashi.</p>
             </div>
             
-            <div>
+            <div class="fade-in-element" style="animation-delay: 0.1s">
                 <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Plan du Site</h4>
                 <ul class="space-y-2 text-sm">
-                    <li><a href="index.html#mission" class="transition-link hover:text-amber-500">À Propos</a></li>
-                    <li><a href="programmes.html" class="transition-link hover:text-amber-500">Offres de Formation</a></li>
-                    <li><a href="mentions.html" class="transition-link hover:text-amber-500">Mentions Légales</a></li>
+                    <li><a href="index.html#mission" class="transition-link hover:text-johari-amber focus-ring">À Propos</a></li>
+                    <li><a href="programmes.html" class="transition-link hover:text-johari-amber focus-ring">Offres de Formation</a></li>
+                    <li><a href="mentions.html" class="transition-link hover:text-johari-amber focus-ring">Mentions Légales</a></li>
                 </ul>
             </div>
             
-            <div>
+            <div class="fade-in-element" style="animation-delay: 0.2s">
                 <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Nous Trouver</h4>
                 <p class="text-sm">
                     Adresse complète du Centre Johari, <br>
@@ -124,16 +355,17 @@
                 </p>
             </div>
             
-            <div>
+            <div class="fade-in-element" style="animation-delay: 0.3s">
                 <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Suivez-nous</h4>
                 <div class="flex space-x-4">
-                    <a href="#" class="text-xl transition-link hover:text-amber-500"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-xl transition-link hover:text-amber-500"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-xl transition-link hover:text-johari-amber focus-ring p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-xl transition-link hover:text-johari-amber focus-ring p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-xl transition-link hover:text-johari-amber focus-ring p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300"><i class="fab fa-instagram"></i></a>
                 </div>
-                <a href="/admin" class="mt-4 block text-xs text-gray-500 transition-link hover:text-amber-500">Espace Administration</a>
+                <a href="/admin" class="mt-4 block text-xs text-gray-500 transition-link hover:text-johari-amber focus-ring">Espace Administration</a>
             </div>
         </div>
-        <div class="text-center text-xs mt-8 border-t border-indigo-800 pt-6">
+        <div class="text-center text-xs mt-8 border-t border-indigo-800 pt-6 fade-in-element">
             &copy; <span id="current-year"></span> Centre Culturel & Universitaire Johari. Tous droits réservés.
         </div>
     </footer>
@@ -142,26 +374,102 @@
         // Initialisation de l'année dans le footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
-        // LOGIQUE DU MENU MOBILE
+        // 1. LOGIQUE DU MENU MOBILE
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
+        const iconBurger = document.getElementById('icon-burger');
+        const iconClose = document.getElementById('icon-close');
 
         mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+            const isHidden = mobileMenu.classList.toggle('hidden');
+            mobileMenuBtn.setAttribute('aria-expanded', !isHidden);
+            iconBurger.classList.toggle('hidden', !isHidden);
+            iconClose.classList.toggle('hidden', isHidden);
         });
+
+        // Fermer le menu après un clic sur un lien (sur mobile)
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                iconBurger.classList.remove('hidden');
+                iconClose.classList.add('hidden');
             });
         });
 
+        // 2. EFFET DE TRANSPARENCE AU DÉFILEMENT SUR LE HEADER
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // 3. ANIMATION AU DÉFILEMENT DES ÉLÉMENTS
+        const fadeElements = document.querySelectorAll('.fade-in-element');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+        
+        // Vérifier au chargement et au défilement
+        window.addEventListener('scroll', fadeInOnScroll);
+        window.addEventListener('load', fadeInOnScroll);
+
+        // 4. FILTRES D'ACTUALITÉS
+        const filterButtons = document.querySelectorAll('.news-filter-btn');
+        let currentFilter = 'all';
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Mettre à jour les styles des boutons
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('active', 'bg-johari-indigo', 'text-white');
+                    btn.classList.add('bg-gray-200', 'text-johari-indigo');
+                });
+                
+                button.classList.remove('bg-gray-200', 'text-johari-indigo');
+                button.classList.add('active', 'bg-johari-indigo', 'text-white');
+                
+                // Appliquer le filtre
+                currentFilter = button.getAttribute('data-filter');
+                filterActualites(currentFilter);
+            });
+        });
+
+        function filterActualites(filter) {
+            const articles = document.querySelectorAll('.news-article');
+            
+            articles.forEach(article => {
+                if (filter === 'all' || article.getAttribute('data-category') === filter) {
+                    article.style.display = 'block';
+                    // Réinitialiser l'animation
+                    article.classList.remove('visible');
+                    setTimeout(() => {
+                        article.classList.add('visible');
+                    }, 50);
+                } else {
+                    article.style.display = 'none';
+                }
+            });
+        }
+
         // ======================================================================
-        // INTÉGRATION FIREBASE POUR CHARGEMENT D'ACTUALITÉS
+        // 5. INTÉGRATION FIREBASE POUR CHARGEMENT D'ACTUALITÉS
         // ======================================================================
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
         import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
         
-        // Configuration de Firebase (VOS CLÉS FOURNIES)
+        // Configuration de Firebase
         const firebaseConfig = {
           apiKey: "AIzaSyCQdZppl-UsPCXF8iFmXQpcGAFjHEMt838",
           authDomain: "gestion-saint-charles-lwanga.firebaseapp.com",
@@ -178,11 +486,23 @@
         const actualitesContainer = document.getElementById('actualites-container');
         const loadingMessage = document.getElementById('loading-message');
         const errorMessage = document.getElementById('error-message');
+        const retryButton = document.getElementById('retry-button');
+        const pagination = document.getElementById('pagination');
+        const prevPageBtn = document.getElementById('prev-page');
+        const nextPageBtn = document.getElementById('next-page');
+        const pageNumbers = document.getElementById('page-numbers');
 
+        // Variables pour la pagination
+        let currentPage = 1;
+        const itemsPerPage = 6;
+        let allActualites = [];
+
+        // Fonction pour charger toutes les actualités
         async function loadAllActualites() {
-            loadingMessage.textContent = 'Chargement de toutes les actualités...';
+            loadingMessage.classList.remove('hidden');
             errorMessage.classList.add('hidden');
-            actualitesContainer.innerHTML = ''; // Nettoyer avant le chargement
+            actualitesContainer.innerHTML = '';
+            pagination.classList.add('hidden');
 
             try {
                 // Requête : TOUTES les actualités, triées par date (du plus récent au plus ancien)
@@ -191,7 +511,7 @@
                 
                 const querySnapshot = await getDocs(q);
                 
-                const actualites = querySnapshot.docs.map(doc => ({ 
+                allActualites = querySnapshot.docs.map(doc => ({ 
                     id: doc.id, 
                     ...doc.data(), 
                     date: doc.data().date ? new Date(doc.data().date.seconds * 1000).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Date non spécifiée'
@@ -199,24 +519,22 @@
 
                 loadingMessage.classList.add('hidden');
 
-                if (actualites.length === 0) {
-                     actualitesContainer.innerHTML = '<p class="col-span-full text-center text-gray-600">Aucune actualité n\'est publiée pour le moment.</p>';
+                if (allActualites.length === 0) {
+                     actualitesContainer.innerHTML = `
+                        <div class="col-span-full text-center py-12 fade-in-element">
+                            <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-newspaper text-3xl text-gray-400"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-600 mb-2">Aucune actualité publiée</h3>
+                            <p class="text-gray-500">Revenez bientôt pour découvrir nos prochaines actualités.</p>
+                        </div>
+                     `;
                      return;
                 }
 
-                actualitesContainer.innerHTML = actualites.map(actu => `
-                    <article class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-[1.02] transition duration-500">
-                        <img src="images/${actu.image || 'default.jpg'}" alt="Image de l'actualité" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <p class="text-sm text-amber-500 font-semibold mb-2">${actu.date}</p>
-                            <h3 class="text-xl font-bold mb-3 text-indigo-900">${actu.titre}</h3>
-                            <p class="text-gray-600 mb-4">${actu.resume || ''}</p>
-                            <a href="${actu.url || '#'}" class="text-indigo-700 font-semibold hover:text-amber-500 transition duration-300">
-                                Lire la suite &rarr;
-                            </a>
-                        </div>
-                    </article>
-                `).join('');
+                // Afficher la première page
+                displayPage(1);
+                setupPagination();
 
             } catch (error) {
                 console.error("Erreur de chargement des actualités (Firestore):", error);
@@ -224,7 +542,99 @@
                 errorMessage.classList.remove('hidden');
             }
         }
+
+        // Fonction pour afficher une page spécifique
+        function displayPage(page) {
+            currentPage = page;
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageActualites = allActualites.slice(startIndex, endIndex);
+
+            actualitesContainer.innerHTML = pageActualites.map(actu => `
+                <article class="bg-white rounded-xl shadow-lg overflow-hidden card-hover fade-in-element news-article" data-category="${actu.categorie || 'evenements'}">
+                    <div class="relative overflow-hidden">
+                        <img src="images/${actu.image || 'default-news.jpg'}" alt="Image de l'actualité: ${actu.titre}" 
+                             class="w-full h-48 object-cover transition-transform duration-700 hover:scale-110">
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-johari-amber text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                ${getCategoryLabel(actu.categorie || 'evenements')}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-sm text-johari-amber font-semibold mb-2 flex items-center">
+                            <i class="far fa-calendar-alt mr-2"></i>${actu.date}
+                        </p>
+                        <h3 class="text-xl font-bold mb-3 text-johari-indigo font-serif">${actu.titre}</h3>
+                        <p class="text-gray-600 mb-4 line-clamp-3">${actu.resume || 'Découvrez cette actualité en détail...'}</p>
+                        <a href="actualite-detail.html?id=${actu.id}" class="text-johari-indigo font-semibold hover:text-johari-amber transition duration-300 focus-ring inline-flex items-center group">
+                            Lire la suite
+                            <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+            `).join('');
+
+            // Réinitialiser l'animation pour les nouveaux éléments
+            setTimeout(fadeInOnScroll, 100);
+        }
+
+        // Fonction utilitaire pour obtenir le libellé de catégorie
+        function getCategoryLabel(category) {
+            const labels = {
+                'evenements': 'Événement',
+                'formations': 'Formation',
+                'succes': 'Succès étudiant'
+            };
+            return labels[category] || 'Actualité';
+        }
+
+        // Configuration de la pagination
+        function setupPagination() {
+            const totalPages = Math.ceil(allActualites.length / itemsPerPage);
+            
+            if (totalPages <= 1) {
+                pagination.classList.add('hidden');
+                return;
+            }
+            
+            pagination.classList.remove('hidden');
+            
+            // Mettre à jour les boutons précédent/suivant
+            prevPageBtn.disabled = currentPage === 1;
+            nextPageBtn.disabled = currentPage === totalPages;
+            
+            // Générer les numéros de page
+            pageNumbers.innerHTML = '';
+            
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.className = `px-4 py-2 rounded-lg font-semibold transition-all duration-300 focus-ring ${
+                    i === currentPage 
+                    ? 'bg-johari-amber text-white' 
+                    : 'bg-gray-200 text-johari-indigo hover:bg-gray-300'
+                }`;
+                pageButton.textContent = i;
+                pageButton.addEventListener('click', () => displayPage(i));
+                pageNumbers.appendChild(pageButton);
+            }
+            
+            // Événements pour les boutons précédent/suivant
+            prevPageBtn.addEventListener('click', () => {
+                if (currentPage > 1) displayPage(currentPage - 1);
+            });
+            
+            nextPageBtn.addEventListener('click', () => {
+                if (currentPage < totalPages) displayPage(currentPage + 1);
+            });
+        }
+
+        // Événement pour le bouton de réessai
+        retryButton.addEventListener('click', loadAllActualites);
         
+        // Chargement initial
         loadAllActualites();
     </script>
 </body>
