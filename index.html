@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centre Culturel & Universitaire Johari - Excellence à Lubumbashi</title>
+    <meta name="description" content="Découvrez le Centre Johari à Lubumbashi : formations en leadership, séminaires professionnels et développement humain. Formons les leaders de demain.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <script src="https://kit.fontawesome.com/votre-kit-code.js" crossorigin="anonymous" async></script>
+
+    <style>
+        /* Définition des familles de polices pour Tailwind */
+        :root {
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Montserrat', sans-serif;
+        }
+        .font-serif { font-family: var(--font-serif); }
+        .font-sans { font-family: var(--font-sans); }
+        
+        /* Styles de base pour le corps et anti-aliasing */
+        body {
+            font-family: var(--font-sans);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Effet de la section Hero - Overlay plus sombre pour la lisibilité du texte */
+        #hero {
+            /* REMPLACER 'images/hero-johari-placeholder.jpg' par votre image réelle */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/hero-johari-placeholder.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Styles spécifiques pour les transitions de survol professionnel */
+        .transition-link {
+            transition: color 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="antialiased text-gray-800 bg-gray-50">
+
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="text-3xl font-serif font-extrabold text-indigo-900 tracking-wider">
+                JOHARI
+                <span class="block text-xs font-sans font-medium text-amber-500 uppercase tracking-widest">L'shi</span>
+            </a>
+            
+            <ul class="hidden md:flex space-x-8 text-lg">
+                <li><a href="#mission" class="transition-link hover:text-amber-500">Mission</a></li>
+                <li><a href="#programmes" class="transition-link hover:text-amber-500">Programmes</a></li>
+                <li><a href="#actualites" class="transition-link hover:text-amber-500">Actualités</a></li>
+                <li><a href="#contact" class="transition-link hover:text-amber-500">Contact</a></li>
+            </ul>
+            
+            <a href="#candidature" class="hidden md:block bg-amber-500 text-white px-6 py-2 rounded-full font-bold transition hover:bg-amber-600 shadow-md">
+                Candidature
+            </a>
+
+            <button id="mobile-menu-btn" class="md:hidden text-indigo-900 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </nav>
+    </header>
+    
+    <nav id="mobile-menu" class="hidden md:hidden bg-indigo-900 text-white p-4">
+        <a href="#mission" class="block py-2 hover:bg-indigo-800 transition">Mission</a>
+        <a href="#programmes" class="block py-2 hover:bg-indigo-800 transition">Programmes</a>
+        <a href="#actualites" class="block py-2 hover:bg-indigo-800 transition">Actualités</a>
+        <a href="#contact" class="block py-2 hover:bg-indigo-800 transition">Contact</a>
+        <a href="#candidature" class="block py-2 mt-2 text-amber-300 font-bold border-t border-indigo-800">Candidature</a>
+    </nav>
+
+    <main>
+        <section id="hero" class="relative h-[60vh] md:h-[80vh] flex items-center justify-center text-center overflow-hidden">
+            <div class="relative z-10 p-6 max-w-4xl">
+                <h1 class="text-4xl md:text-6xl font-serif font-extrabold text-white mb-4 leading-tight">
+                    Former l'Excellence, Inspirer l'Éthique
+                </h1>
+                <p class="text-xl text-gray-200 mb-8">
+                    Le Centre Johari, à Lubumbashi, pour l'épanouissement intégral et le leadership de la jeunesse congolaise.
+                </p>
+                <a href="#programmes" class="bg-amber-500 text-white text-lg px-10 py-4 rounded-full font-bold transition duration-300 shadow-xl transform hover:scale-105 inline-block">
+                    Découvrir nos Formations
+                </a>
+            </div>
+        </section>
+
+        <section id="valeurs" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-indigo-900 mb-12">Notre Engagement</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center p-6 border-t-4 border-amber-500 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                        <i class="fas fa-graduation-cap text-4xl text-amber-500 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Excellence Académique</h3>
+                        <p class="text-gray-600">Des programmes rigoureux et des formateurs qualifiés pour un savoir-faire de pointe.</p>
+                    </div>
+                    <div class="text-center p-6 border-t-4 border-amber-500 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                        <i class="fas fa-hand-holding-heart text-4xl text-amber-500 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Valeurs et Service</h3>
+                        <p class="text-gray-600">Développement du caractère et engagement au service de la société.</p>
+                    </div>
+                    <div class="text-center p-6 border-t-4 border-amber-500 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                        <i class="fas fa-lightbulb text-4xl text-amber-500 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Leadership Intégral</h3>
+                        <p class="text-gray-600">Former des professionnels capables d'influencer positivement leur milieu.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="actualites" class="py-16 md:py-24 bg-gray-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-indigo-900 mb-12">Dernières Actualités</h2>
+                
+                <div id="actualites-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <p class="col-span-3 text-center text-gray-500" id="loading-message">Chargement des actualités...</p>
+                </div>
+                
+                <div class="text-center mt-12">
+                    <a href="actualites.html" class="text-indigo-900 border-b-2 border-amber-500 transition-link hover:text-amber-500 font-semibold">
+                        Voir toutes les actualités &rarr;
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="partenariat" class="py-16 bg-indigo-800 text-white">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4">Devenez Partenaire de l'Excellence</h2>
+                <p class="text-xl mb-8">Soutenez le développement d'une jeunesse compétente et éthique à Lubumbashi.</p>
+                <a href="contact.html#partenariat" class="bg-white text-indigo-800 text-lg px-8 py-3 rounded-full font-bold transition duration-300 shadow-lg transform hover:scale-105 inline-block">
+                    Collaborer avec Johari
+                </a>
+            </div>
+        </section>
+
+        <section id="contact" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-4 max-w-3xl">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-indigo-900 mb-12">Nous Contacter</h2>
+                <form id="contact-form" class="space-y-6 bg-gray-50 p-8 rounded-lg shadow-xl">
+                    <input type="text" id="nom" name="nom" placeholder="Votre Nom Complet" required
+                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500 transition duration-300">
+                    
+                    <input type="email" id="email" name="email" placeholder="Votre E-mail" required
+                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500 transition duration-300">
+                           
+                    <textarea id="message" name="message" rows="4" placeholder="Votre Message ou Question" required
+                              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500 transition duration-300"></textarea>
+                              
+                    <button type="submit" class="w-full bg-indigo-900 text-white text-lg font-bold p-3 rounded-lg hover:bg-indigo-800 transition duration-300 transform hover:scale-[1.01] shadow-md">
+                        Envoyer le Message
+                    </button>
+                    <p id="form-status" class="text-center text-sm mt-3 hidden"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-indigo-900 text-gray-300 py-12">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <a href="/" class="text-2xl font-serif font-extrabold text-white tracking-wider">JOHARI</a>
+                <p class="mt-3 text-sm">Former, Inspirer, Bâtir l'avenir de Lubumbashi.</p>
+            </div>
+            
+            <div>
+                <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Plan du Site</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#mission" class="transition-link hover:text-amber-500">À Propos</a></li>
+                    <li><a href="#programmes" class="transition-link hover:text-amber-500">Offres de Formation</a></li>
+                    <li><a href="mentions.html" class="transition-link hover:text-amber-500">Mentions Légales</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Nous Trouver</h4>
+                <p class="text-sm">
+                    Adresse complète du Centre Johari, <br>
+                    Lubumbashi, RDC<br>
+                    Tél : +243 xx xxx xxxx<br>
+                    Email : contact@johari-lshi.org
+                </p>
+            </div>
+            
+            <div>
+                <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Suivez-nous</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-xl transition-link hover:text-amber-500"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-xl transition-link hover:text-amber-500"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <a href="/admin" class="mt-4 block text-xs text-gray-500 transition-link hover:text-amber-500">Espace Administration</a>
+            </div>
+        </div>
+        <div class="text-center text-xs mt-8 border-t border-indigo-800 pt-6">
+            &copy; <span id="current-year"></span> Centre Culturel & Universitaire Johari. Tous droits réservés.
+        </div>
+    </footer>
+
+    <script type="module">
+        // Initialisation de l'année dans le footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // 1. LOGIQUE DU MENU MOBILE
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Fermer le menu après un clic sur un lien (sur mobile)
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // ======================================================================
+        // 2. INTÉGRATION FIREBASE
+        // ======================================================================
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+        import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-functions.js";
+
+        // Configuration de Firebase (VOS CLÉS FOURNIES)
+        const firebaseConfig = {
+          apiKey: "AIzaSyCQdZppl-UsPCXF8iFmXQpcGAFjHEMt838",
+          authDomain: "gestion-saint-charles-lwanga.firebaseapp.com",
+          projectId: "gestion-saint-charles-lwanga",
+          storageBucket: "gestion-saint-charles-lwanga.firebasestorage.app",
+          messagingSenderId: "508302363143",
+          appId: "1:508302363143:web:35c181528dd84def1a78a2"
+        };
+        
+        // Initialisation des services
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const functions = getFunctions(app); // Note: Les Cloud Functions doivent être déployées
+
+        console.log("🔥 Firebase initialisé pour les services Firestore et Functions.");
+
+
+        // ======================================================================
+        // 3. LOGIQUE DE CHARGEMENT DES ACTUALITÉS (avec Firestore)
+        // ======================================================================
+        const actualitesContainer = document.getElementById('actualites-container');
+
+        async function loadActualites() {
+            try {
+                // Créer une requête : les 3 dernières actualités, triées par date
+                const actualitesRef = collection(db, "actualites");
+                const q = query(actualitesRef, orderBy("date", "desc"), limit(3));
+                
+                const querySnapshot = await getDocs(q);
+                
+                // Transformer les documents Firestore en objets JavaScript
+                const actualites = querySnapshot.docs.map(doc => ({ 
+                    id: doc.id, 
+                    ...doc.data(), 
+                    // Assurez-vous que le champ 'date' existe dans Firestore et est un Timestamp
+                    date: doc.data().date ? new Date(doc.data().date.seconds * 1000).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Date non spécifiée'
+                }));
+
+                if (actualites.length === 0) {
+                     actualitesContainer.innerHTML = '<p class="col-span-3 text-center text-gray-600">Aucune actualité récente disponible pour le moment.</p>';
+                     return;
+                }
+
+                actualitesContainer.innerHTML = actualites.map(actu => `
+                    <article class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-[1.02] transition duration-500">
+                        <img src="images/${actu.image || 'default.jpg'}" alt="Image de l'actualité" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <p class="text-sm text-amber-500 font-semibold mb-2">${actu.date}</p>
+                            <h3 class="text-xl font-bold mb-3 text-indigo-900">${actu.titre}</h3>
+                            <a href="${actu.url || '#'}" class="text-indigo-700 font-semibold hover:text-amber-500 transition duration-300">
+                                Lire la suite &rarr;
+                            </a>
+                        </div>
+                    </article>
+                `).join('');
+
+            } catch (error) {
+                console.error("Erreur de chargement des actualités (Firestore):", error);
+                actualitesContainer.innerHTML = '<p class="col-span-3 text-center text-red-500">Erreur lors du chargement des actualités. Vérifiez la connexion à Firestore et les règles de sécurité.</p>';
+            }
+        }
+        
+        loadActualites();
+
+        // ======================================================================
+        // 4. LOGIQUE DE SOUMISSION DU FORMULAIRE DE CONTACT (avec Cloud Functions)
+        // ======================================================================
+        const contactForm = document.getElementById('contact-form');
+        const formStatus = document.getElementById('form-status');
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            formStatus.classList.remove('hidden', 'text-green-600', 'text-red-600');
+            formStatus.classList.add('text-gray-500');
+            formStatus.textContent = 'Envoi en cours...';
+
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                // Définir le nom de votre Cloud Function HTTPS (doit correspondre à celle déployée)
+                const sendContactEmail = httpsCallable(functions, 'sendContactEmail'); 
+                
+                // Envoi des données
+                await sendContactEmail(data);
+
+                formStatus.textContent = 'Votre message a été envoyé avec succès. Merci !';
+                formStatus.classList.remove('text-gray-500');
+                formStatus.classList.add('text-green-600');
+                contactForm.reset(); 
+
+            } catch (error) {
+                console.error("Erreur d'envoi du formulaire (Cloud Function):", error);
+                formStatus.textContent = "Une erreur est survenue lors de l'envoi. Veuillez vérifier que la fonction 'sendContactEmail' est déployée.";
+                formStatus.classList.remove('text-gray-500');
+                formStatus.classList.add('text-red-600');
+            } finally {
+                 formStatus.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
