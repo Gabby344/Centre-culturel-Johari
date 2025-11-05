@@ -7,154 +7,414 @@
     <meta name="description" content="Déposez votre candidature pour les programmes de leadership et de formation professionnelle du Centre Johari à Lubumbashi.">
     
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        'johari-indigo': '#1F2937', 
+                        'johari-amber': '#F59E0B',
+                        'johari-gold': '#D97706',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                        'bounce-subtle': 'bounceSubtle 2s infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        bounceSubtle: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-5px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     
-    <script src="https://kit.fontawesome.com/votre-kit-code.js" crossorigin="anonymous" async></script>
+    <!-- Remplacez par votre propre Font Awesome Kit -->
+    <script src="https://kit.fontawesome.com/votre-kit-code.js" crossorigin="anonymous" defer></script>
 
     <style>
-        /* Styles CSS copiés pour la cohérence */
-        :root {
-            --font-serif: 'Playfair Display', serif;
-            --font-sans: 'Montserrat', sans-serif;
-        }
-        .font-serif { font-family: var(--font-serif); }
-        .font-sans { font-family: var(--font-sans); }
         body {
-            font-family: var(--font-sans);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            scroll-behavior: smooth;
         }
+
+        /* Header avec effet de transparence au défilement */
+        header {
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        header.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animation d'entrée pour les éléments */
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in-element.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Effet de brillance sur les boutons */
+        .shine-effect {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shine-effect::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+            transition: all 0.6s;
+            opacity: 0;
+        }
+
+        .shine-effect:hover::after {
+            opacity: 1;
+            transform: rotate(30deg) translate(10%, 10%);
+        }
+
+        /* Effet de carte avec ombre portée */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Amélioration des transitions de liens */
         .transition-link {
-            transition: color 0.3s ease-in-out;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .transition-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #F59E0B;
+            transition: width 0.3s ease;
+        }
+
+        .transition-link:hover::after {
+            width: 100%;
+        }
+
+        /* Amélioration de l'accessibilité */
+        .focus-ring:focus {
+            outline: 3px solid theme('colors.johari-amber');
+            outline-offset: 2px;
+            border-color: theme('colors.johari-amber');
+        }
+
+        /* Barre de défilement personnalisée */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #F59E0B;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D97706;
+        }
+
+        /* Styles pour les champs de formulaire */
+        .form-field {
+            transition: all 0.3s ease;
+        }
+
+        .form-field:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.15);
+        }
+
+        /* Indicateur de progression */
+        .progress-step {
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active {
+            background-color: theme('colors.johari-amber');
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .progress-step.completed {
+            background-color: theme('colors.johari-indigo');
+            color: white;
+        }
+
+        /* Animation de chargement pour le bouton de soumission */
+        .submit-loading {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: loading-shine 1.5s infinite;
+        }
+
+        @keyframes loading-shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
     </style>
 </head>
-<body class="antialiased text-gray-800 bg-gray-50">
+<body class="antialiased text-gray-800 bg-gray-50 font-sans">
 
-    <header class="sticky top-0 z-50 bg-white shadow-md">
-        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="/" class="text-3xl font-serif font-extrabold text-indigo-900 tracking-wider">
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md transition-all duration-500">
+        <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="text-3xl font-serif font-extrabold text-johari-indigo tracking-wider focus-ring transition-transform duration-300 hover:scale-105">
                 JOHARI
-                <span class="block text-xs font-sans font-medium text-amber-500 uppercase tracking-widest">L'shi</span>
+                <span class="block text-xs font-medium text-johari-amber uppercase tracking-widest">L'shi</span>
             </a>
             
             <ul class="hidden md:flex space-x-8 text-lg">
-                <li><a href="index.html#mission" class="transition-link hover:text-amber-500">Mission</a></li>
-                <li><a href="programmes.html" class="transition-link hover:text-amber-500">Programmes</a></li>
-                <li><a href="actualites.html" class="transition-link hover:text-amber-500">Actualités</a></li>
-                <li><a href="index.html#contact" class="transition-link hover:text-amber-500">Contact</a></li>
+                <li><a href="index.html#mission" class="transition-link hover:text-johari-amber focus-ring py-2">Mission</a></li>
+                <li><a href="programmes.html" class="transition-link hover:text-johari-amber focus-ring py-2">Programmes</a></li>
+                <li><a href="actualites.html" class="transition-link hover:text-johari-amber focus-ring py-2">Actualités</a></li>
+                <li><a href="index.html#contact" class="transition-link hover:text-johari-amber focus-ring py-2">Contact</a></li>
             </ul>
             
-            <a href="#candidature" class="hidden md:block bg-amber-500 text-white px-6 py-2 rounded-full font-bold transition hover:bg-amber-600 shadow-md">
+            <a href="#candidature" class="hidden md:block bg-johari-amber text-white px-6 py-2 rounded-full font-bold transition-all duration-300 hover:bg-johari-gold shadow-md hover:shadow-lg focus-ring shine-effect">
                 Candidature
             </a>
 
-            <button id="mobile-menu-btn" class="md:hidden text-indigo-900 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            <button id="mobile-menu-btn" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden text-johari-indigo focus-ring p-2 rounded-lg transition-colors duration-300 hover:bg-gray-100">
+                <svg id="icon-burger" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                <svg id="icon-close" class="w-6 h-6 hidden transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </nav>
     </header>
     
-    <nav id="mobile-menu" class="hidden md:hidden bg-indigo-900 text-white p-4">
-        <a href="index.html#mission" class="block py-2 hover:bg-indigo-800 transition">Mission</a>
-        <a href="programmes.html" class="block py-2 hover:bg-indigo-800 transition">Programmes</a>
-        <a href="actualites.html" class="block py-2 hover:bg-indigo-800 transition">Actualités</a>
-        <a href="index.html#contact" class="block py-2 hover:bg-indigo-800 transition">Contact</a>
-        <a href="#candidature" class="block py-2 mt-2 text-amber-300 font-bold border-t border-indigo-800">Candidature</a>
+    <nav id="mobile-menu" class="hidden md:hidden bg-johari-indigo/95 backdrop-blur-md text-white p-4 transition-all duration-500" aria-label="Menu principal mobile">
+        <a href="index.html#mission" class="block py-3 px-4 rounded-lg transition-all duration-300 hover:bg-indigo-800 focus-ring">Mission</a>
+        <a href="programmes.html" class="block py-3 px-4 rounded-lg transition-all duration-300 hover:bg-indigo-800 focus-ring">Programmes</a>
+        <a href="actualites.html" class="block py-3 px-4 rounded-lg transition-all duration-300 hover:bg-indigo-800 focus-ring">Actualités</a>
+        <a href="index.html#contact" class="block py-3 px-4 rounded-lg transition-all duration-300 hover:bg-indigo-800 focus-ring">Contact</a>
+        <a href="#candidature" class="block py-3 px-4 mt-2 text-amber-300 font-bold border-t border-indigo-800 focus-ring rounded-lg transition-all duration-300 hover:bg-indigo-800">Candidature</a>
     </nav>
 
     <main class="py-16 md:py-24">
         <div class="container mx-auto px-4 max-w-4xl">
-            <header class="text-center mb-16">
-                <h1 class="text-5xl font-serif font-extrabold text-indigo-900 mb-4">Postuler pour l'Excellence</h1>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            <header class="text-center mb-16 animate-fade-in">
+                <h1 class="text-4xl md:text-5xl font-serif font-extrabold text-johari-indigo mb-4 animate-slide-up">Postuler pour l'Excellence</h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto animate-slide-up" style="animation-delay: 0.2s">
                     Remplissez ce formulaire pour soumettre votre candidature à nos programmes de formation. Notre équipe vous contactera sous 48h.
                 </p>
+                
+                <!-- Indicateur de progression -->
+                <div class="flex justify-center mt-8 mb-4 animate-slide-up" style="animation-delay: 0.4s">
+                    <div class="flex items-center">
+                        <div class="progress-step w-8 h-8 rounded-full bg-johari-amber text-white flex items-center justify-center font-bold transition-all duration-300 active">
+                            1
+                        </div>
+                        <div class="w-12 h-1 bg-gray-300 mx-2"></div>
+                        <div class="progress-step w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold transition-all duration-300">
+                            2
+                        </div>
+                        <div class="w-12 h-1 bg-gray-300 mx-2"></div>
+                        <div class="progress-step w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold transition-all duration-300">
+                            3
+                        </div>
+                    </div>
+                </div>
             </header>
 
-            <form id="candidature-form" class="bg-white p-8 md:p-12 rounded-xl shadow-2xl space-y-8">
+            <form id="candidature-form" class="bg-white p-8 md:p-12 rounded-xl shadow-2xl space-y-8 card-hover fade-in-element">
                 
-                <fieldset class="border border-gray-300 p-6 rounded-lg">
-                    <legend class="text-2xl font-serif font-bold text-indigo-900 px-3">1. Votre Identité</legend>
-                    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <input type="text" id="nom_candidat" name="nom" placeholder="Nom Complet" required
-                               class="w-full p-3 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500">
+                <fieldset class="border border-gray-200 p-6 rounded-lg bg-white/50 backdrop-blur-sm transition-all duration-300 hover:shadow-md">
+                    <legend class="text-2xl font-serif font-bold text-johari-indigo px-3 flex items-center">
+                        <div class="w-8 h-8 bg-johari-amber rounded-full flex items-center justify-center text-white mr-3 text-sm">1</div>
+                        Votre Identité
+                    </legend>
+                    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label for="nom_candidat" class="block text-sm font-medium text-gray-700">Nom Complet</label>
+                            <input type="text" id="nom_candidat" name="nom" placeholder="Votre nom complet" required
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus-ring form-field transition-all duration-300">
+                        </div>
                         
-                        <input type="email" id="email_candidat" name="email" placeholder="Adresse E-mail (Requise)" required
-                               class="w-full p-3 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500">
+                        <div class="space-y-2">
+                            <label for="email_candidat" class="block text-sm font-medium text-gray-700">Adresse E-mail</label>
+                            <input type="email" id="email_candidat" name="email" placeholder="email@exemple.com" required
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus-ring form-field transition-all duration-300">
+                        </div>
                                
-                        <input type="tel" id="telephone_candidat" name="telephone" placeholder="Numéro de Téléphone" required
-                               class="w-full p-3 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500">
+                        <div class="space-y-2">
+                            <label for="telephone_candidat" class="block text-sm font-medium text-gray-700">Numéro de Téléphone</label>
+                            <input type="tel" id="telephone_candidat" name="telephone" placeholder="+243 XX XXX XXXX" required
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus-ring form-field transition-all duration-300">
+                        </div>
 
-                        <div>
-                            <label for="date_naissance" class="block text-sm font-medium text-gray-700 mb-1">Date de Naissance</label>
+                        <div class="space-y-2">
+                            <label for="date_naissance" class="block text-sm font-medium text-gray-700">Date de Naissance</label>
                             <input type="date" id="date_naissance" name="date_naissance" required
-                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500">
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus-ring form-field transition-all duration-300">
                         </div>
                     </div>
                 </fieldset>
                 
-                <fieldset class="border border-gray-300 p-6 rounded-lg">
-                    <legend class="text-2xl font-serif font-bold text-indigo-900 px-3">2. Choix de Programme</legend>
-                    <div class="mt-4">
-                        <label for="programme_choisi" class="block text-lg font-medium text-gray-700 mb-2">Quel programme souhaitez-vous suivre ?</label>
+                <fieldset class="border border-gray-200 p-6 rounded-lg bg-white/50 backdrop-blur-sm transition-all duration-300 hover:shadow-md">
+                    <legend class="text-2xl font-serif font-bold text-johari-indigo px-3 flex items-center">
+                        <div class="w-8 h-8 bg-johari-amber rounded-full flex items-center justify-center text-white mr-3 text-sm">2</div>
+                        Choix de Programme
+                    </legend>
+                    <div class="mt-6">
+                        <label for="programme_choisi" class="block text-lg font-medium text-gray-700 mb-3">Quel programme souhaitez-vous suivre ?</label>
                         <select id="programme_choisi" name="programme_choisi" required
-                                class="w-full p-3 border border-gray-300 rounded-lg bg-white focus:ring-amber-500 focus:border-amber-500">
+                                class="w-full p-3 border border-gray-300 rounded-lg bg-white focus-ring form-field transition-all duration-300">
                             <option value="" disabled selected>-- Sélectionnez un programme --</option>
                             <option value="leadership">Leadership Intégral</option>
                             <option value="entrepreneuriat">Incubateur Johari pour Entrepreneurs</option>
                             <option value="numerique">Ateliers de Maîtrise des Outils Numériques</option>
                             <option value="autre">Autre / Information générale</option>
                         </select>
+                        
+                        <!-- Aperçu du programme sélectionné -->
+                        <div id="programme-preview" class="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-lg hidden transition-all duration-300 fade-in-element">
+                            <h4 class="font-bold text-johari-indigo mb-2" id="programme-titre"></h4>
+                            <p class="text-sm text-gray-700" id="programme-description"></p>
+                        </div>
                     </div>
                 </fieldset>
 
-                <fieldset class="border border-gray-300 p-6 rounded-lg">
-                    <legend class="text-2xl font-serif font-bold text-indigo-900 px-3">3. Votre Motivation</legend>
-                    <div class="mt-4">
-                        <label for="motivation" class="block text-sm font-medium text-gray-700 mb-1">Pourquoi souhaitez-vous rejoindre le Centre Johari ? (500 mots max)</label>
+                <fieldset class="border border-gray-200 p-6 rounded-lg bg-white/50 backdrop-blur-sm transition-all duration-300 hover:shadow-md">
+                    <legend class="text-2xl font-serif font-bold text-johari-indigo px-3 flex items-center">
+                        <div class="w-8 h-8 bg-johari-amber rounded-full flex items-center justify-center text-white mr-3 text-sm">3</div>
+                        Votre Motivation
+                    </legend>
+                    <div class="mt-6">
+                        <label for="motivation" class="block text-sm font-medium text-gray-700 mb-2">
+                            Pourquoi souhaitez-vous rejoindre le Centre Johari ? 
+                            <span class="text-johari-amber">(500 mots max)</span>
+                        </label>
                         <textarea id="motivation" name="motivation" rows="5" required
-                              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500 transition duration-300"></textarea>
+                              class="w-full p-3 border border-gray-300 rounded-lg focus-ring form-field transition-all duration-300 resize-none"
+                              placeholder="Décrivez vos motivations, vos aspirations et ce que vous espérez accomplir grâce à notre formation..."></textarea>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-xs text-gray-500">Votre réponse nous aide à mieux comprendre votre profil</span>
+                            <span id="char-count" class="text-xs text-gray-500">0/500 mots</span>
+                        </div>
                     </div>
                 </fieldset>
                 
-                <button type="submit" id="submit-btn" class="w-full bg-amber-500 text-white text-xl font-bold p-4 rounded-lg hover:bg-amber-600 transition duration-300 shadow-lg transform hover:scale-[1.01]">
-                    Soumettre ma Candidature
+                <div class="bg-amber-50 border border-amber-200 rounded-lg p-6 transition-all duration-300 fade-in-element">
+                    <h3 class="font-bold text-johari-indigo mb-2 flex items-center">
+                        <i class="fas fa-info-circle text-johari-amber mr-2"></i>
+                        Information importante
+                    </h3>
+                    <p class="text-sm text-gray-700">
+                        Après soumission de votre candidature, notre équipe d'admission l'examinera attentivement. 
+                        Vous recevrez une confirmation par e-mail et serez contacté pour un entretien si votre profil correspond à nos critères.
+                    </p>
+                </div>
+                
+                <button type="submit" id="submit-btn" class="w-full bg-johari-amber text-white text-xl font-bold p-4 rounded-lg hover:bg-johari-gold transition-all duration-300 shadow-lg transform hover:scale-[1.01] focus-ring shine-effect group">
+                    <span class="flex items-center justify-center">
+                        Soumettre ma Candidature
+                        <svg class="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </span>
                 </button>
                 
-                <p id="form-status" class="text-center text-sm mt-3 hidden"></p>
+                <p id="form-status" class="text-center text-sm mt-3 hidden transition-all duration-300"></p>
 
             </form>
             
-            <div id="success-message" class="hidden mt-8 p-6 bg-green-100 border border-green-400 text-green-700 rounded-lg text-center" role="alert">
-                <h3 class="text-2xl font-bold mb-2">Félicitations !</h3>
-                <p>Votre candidature a été reçue avec succès. Nous l'examinerons et vous contacterons par e-mail dans les plus brefs délais.</p>
-                <a href="/" class="mt-4 inline-block text-indigo-700 font-semibold hover:text-amber-500">Retour à la page d'accueil &rarr;</a>
+            <div id="success-message" class="hidden mt-8 p-8 bg-green-50 border border-green-200 rounded-xl text-center card-hover fade-in-element" role="alert">
+                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-check-circle text-4xl text-green-500"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-green-800 mb-2">Félicitations !</h3>
+                <p class="text-green-700 mb-6">Votre candidature a été reçue avec succès. Nous l'examinerons et vous contacterons par e-mail dans les plus brefs délais.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="/" class="bg-johari-indigo text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-indigo-800 focus-ring shine-effect">
+                        Retour à l'accueil
+                    </a>
+                    <a href="programmes.html" class="border border-johari-indigo text-johari-indigo px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-johari-indigo hover:text-white focus-ring">
+                        Découvrir nos programmes
+                    </a>
+                </div>
             </div>
             
         </div>
     </main>
 
-    <footer class="bg-indigo-900 text-gray-300 py-12">
+    <footer class="bg-johari-indigo text-gray-300 py-12">
         <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-                <a href="/" class="text-2xl font-serif font-extrabold text-white tracking-wider">JOHARI</a>
+            <div class="fade-in-element">
+                <a href="/" class="text-2xl font-serif font-extrabold text-white tracking-wider focus-ring transition-transform duration-300 hover:scale-105 inline-block">JOHARI</a>
                 <p class="mt-3 text-sm">Former, Inspirer, Bâtir l'avenir de Lubumbashi.</p>
             </div>
             
-            <div>
+            <div class="fade-in-element" style="animation-delay: 0.1s">
                 <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Plan du Site</h4>
                 <ul class="space-y-2 text-sm">
-                    <li><a href="index.html#mission" class="transition-link hover:text-amber-500">À Propos</a></li>
-                    <li><a href="programmes.html" class="transition-link hover:text-amber-500">Offres de Formation</a></li>
-                    <li><a href="mentions.html" class="transition-link hover:text-amber-500">Mentions Légales</a></li>
+                    <li><a href="index.html#mission" class="transition-link hover:text-johari-amber focus-ring">À Propos</a></li>
+                    <li><a href="programmes.html" class="transition-link hover:text-johari-amber focus-ring">Offres de Formation</a></li>
+                    <li><a href="mentions.html" class="transition-link hover:text-johari-amber focus-ring">Mentions Légales</a></li>
                 </ul>
             </div>
             
-            <div>
+            <div class="fade-in-element" style="animation-delay: 0.2s">
                 <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Nous Trouver</h4>
                 <p class="text-sm">
                     Adresse complète du Centre Johari, <br>
@@ -164,16 +424,17 @@
                 </p>
             </div>
             
-            <div>
+            <div class="fade-in-element" style="animation-delay: 0.3s">
                 <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Suivez-nous</h4>
                 <div class="flex space-x-4">
-                    <a href="#" class="text-xl transition-link hover:text-amber-500"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-xl transition-link hover:text-amber-500"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-xl transition-link hover:text-johari-amber focus-ring p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-xl transition-link hover:text-johari-amber focus-ring p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-xl transition-link hover:text-johari-amber focus-ring p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300"><i class="fab fa-instagram"></i></a>
                 </div>
-                <a href="/admin" class="mt-4 block text-xs text-gray-500 transition-link hover:text-amber-500">Espace Administration</a>
+                <a href="/admin" class="mt-4 block text-xs text-gray-500 transition-link hover:text-johari-amber focus-ring">Espace Administration</a>
             </div>
         </div>
-        <div class="text-center text-xs mt-8 border-t border-indigo-800 pt-6">
+        <div class="text-center text-xs mt-8 border-t border-indigo-800 pt-6 fade-in-element">
             &copy; <span id="current-year"></span> Centre Culturel & Universitaire Johari. Tous droits réservés.
         </div>
     </footer>
@@ -182,41 +443,115 @@
         // Initialisation de l'année dans le footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
-        // LOGIQUE DU MENU MOBILE
+        // 1. LOGIQUE DU MENU MOBILE
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
+        const iconBurger = document.getElementById('icon-burger');
+        const iconClose = document.getElementById('icon-close');
 
         mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+            const isHidden = mobileMenu.classList.toggle('hidden');
+            mobileMenuBtn.setAttribute('aria-expanded', !isHidden);
+            iconBurger.classList.toggle('hidden', !isHidden);
+            iconClose.classList.toggle('hidden', isHidden);
         });
+
+        // Fermer le menu après un clic sur un lien (sur mobile)
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                iconBurger.classList.remove('hidden');
+                iconClose.classList.add('hidden');
             });
         });
 
-        // ======================================================================
-        // INTÉGRATION FIREBASE POUR SOUMISSION DU FORMULAIRE
-        // ======================================================================
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-functions.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+        // 2. EFFET DE TRANSPARENCE AU DÉFILEMENT SUR LE HEADER
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // 3. ANIMATION AU DÉFILEMENT DES ÉLÉMENTS
+        const fadeElements = document.querySelectorAll('.fade-in-element');
         
-        // Configuration de Firebase (VOS CLÉS FOURNIES)
-        const firebaseConfig = {
-          apiKey: "AIzaSyCQdZppl-UsPCXF8iFmXQpcGAFjHEMt838",
-          authDomain: "gestion-saint-charles-lwanga.firebaseapp.com",
-          projectId: "gestion-saint-charles-lwanga",
-          storageBucket: "gestion-saint-charles-lwanga.firebasestorage.app",
-          messagingSenderId: "508302363143",
-          appId: "1:508302363143:web:35c181528dd84def1a78a2"
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
         };
         
-        // Initialisation des services
-        const app = initializeApp(firebaseConfig);
-        const functions = getFunctions(app);
-        const db = getFirestore(app);
+        // Vérifier au chargement et au défilement
+        window.addEventListener('scroll', fadeInOnScroll);
+        window.addEventListener('load', fadeInOnScroll);
 
+        // 4. FONCTIONNALITÉS DU FORMULAIRE
+        const programmeSelect = document.getElementById('programme_choisi');
+        const programmePreview = document.getElementById('programme-preview');
+        const programmeTitre = document.getElementById('programme-titre');
+        const programmeDescription = document.getElementById('programme-description');
+        const motivationTextarea = document.getElementById('motivation');
+        const charCount = document.getElementById('char-count');
+
+        // Descriptions des programmes
+        const programmeDescriptions = {
+            'leadership': {
+                titre: 'Leadership Intégral',
+                description: 'Formation complète pour développer vos compétences en leadership, gestion d\'équipe et prise de décision stratégique.'
+            },
+            'entrepreneuriat': {
+                titre: 'Incubateur Johari pour Entrepreneurs',
+                description: 'Accompagnement personnalisé pour transformer votre idée en entreprise viable avec mentorat et ressources dédiées.'
+            },
+            'numerique': {
+                titre: 'Ateliers de Maîtrise des Outils Numériques',
+                description: 'Formation pratique aux outils digitaux essentiels pour exceller dans l\'environnement professionnel moderne.'
+            },
+            'autre': {
+                titre: 'Autre / Information générale',
+                description: 'Vous souhaitez plus d\'informations sur nos programmes ou avez une demande spécifique.'
+            }
+        };
+
+        // Afficher l'aperçu du programme sélectionné
+        programmeSelect.addEventListener('change', function() {
+            const selectedValue = this.value;
+            if (selectedValue && programmeDescriptions[selectedValue]) {
+                programmeTitre.textContent = programmeDescriptions[selectedValue].titre;
+                programmeDescription.textContent = programmeDescriptions[selectedValue].description;
+                programmePreview.classList.remove('hidden');
+                
+                // Animation d'apparition
+                setTimeout(() => {
+                    programmePreview.classList.add('visible');
+                }, 10);
+            } else {
+                programmePreview.classList.add('hidden');
+            }
+        });
+
+        // Compteur de mots pour la motivation
+        motivationTextarea.addEventListener('input', function() {
+            const wordCount = this.value.trim().split(/\s+/).length;
+            charCount.textContent = `${wordCount}/500 mots`;
+            
+            if (wordCount > 500) {
+                charCount.classList.add('text-red-500');
+            } else {
+                charCount.classList.remove('text-red-500');
+            }
+        });
+
+        // Validation du formulaire avant soumission
         const candidatureForm = document.getElementById('candidature-form');
         const submitBtn = document.getElementById('submit-btn');
         const formStatus = document.getElementById('form-status');
@@ -225,12 +560,24 @@
         candidatureForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
+            // Validation du compteur de mots
+            const wordCount = motivationTextarea.value.trim().split(/\s+/).length;
+            if (wordCount > 500) {
+                formStatus.textContent = 'Votre texte de motivation ne doit pas dépasser 500 mots.';
+                formStatus.classList.remove('hidden', 'text-green-600');
+                formStatus.classList.add('text-red-600');
+                return;
+            }
+            
             // Masquer les messages précédents
             formStatus.classList.remove('hidden', 'text-green-600', 'text-red-600');
             formStatus.classList.add('text-gray-500');
             formStatus.textContent = 'Traitement de la candidature...';
+            
+            // Animation du bouton
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Envoi en cours...';
+            submitBtn.classList.add('submit-loading');
+            submitBtn.innerHTML = '<span class="flex items-center justify-center"><i class="fas fa-spinner fa-spin mr-2"></i> Envoi en cours...</span>';
 
             // Récupérer les données du formulaire
             const formData = new FormData(candidatureForm);
@@ -238,11 +585,32 @@
             data.dateSoumission = new Date(); // Ajouter l'horodatage
 
             try {
+                // ======================================================================
+                // INTÉGRATION FIREBASE POUR SOUMISSION DU FORMULAIRE
+                // ======================================================================
+                import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+                import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-functions.js";
+                import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+                
+                // Configuration de Firebase
+                const firebaseConfig = {
+                  apiKey: "AIzaSyCQdZppl-UsPCXF8iFmXQpcGAFjHEMt838",
+                  authDomain: "gestion-saint-charles-lwanga.firebaseapp.com",
+                  projectId: "gestion-saint-charles-lwanga",
+                  storageBucket: "gestion-saint-charles-lwanga.firebasestorage.app",
+                  messagingSenderId: "508302363143",
+                  appId: "1:508302363143:web:35c181528dd84def1a78a2"
+                };
+                
+                // Initialisation des services
+                const app = initializeApp(firebaseConfig);
+                const functions = getFunctions(app);
+                const db = getFirestore(app);
+
                 // 1. Enregistrement des données dans Firestore (pour la trace)
                 await addDoc(collection(db, "candidatures"), data);
                 
                 // 2. Appel de la Cloud Function pour l'e-mail de notification/confirmation
-                // NOTE: La Cloud Function doit s'appeler 'processCandidature' ou autre
                 const processCandidature = httpsCallable(functions, 'processCandidature'); 
                 await processCandidature(data);
 
@@ -253,6 +621,11 @@
                 
                 candidatureForm.classList.add('hidden'); // Masquer le formulaire
                 successMessage.classList.remove('hidden'); // Afficher le message de succès
+                
+                // Animation d'apparition du message de succès
+                setTimeout(() => {
+                    successMessage.classList.add('visible');
+                }, 10);
 
             } catch (error) {
                 console.error("Erreur de soumission de la candidature:", error);
@@ -261,8 +634,10 @@
                 formStatus.classList.remove('text-gray-500');
                 formStatus.classList.add('text-red-600');
                 
+                // Réactiver le bouton
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Soumettre ma Candidature';
+                submitBtn.classList.remove('submit-loading');
+                submitBtn.innerHTML = '<span class="flex items-center justify-center">Soumettre ma Candidature<svg class="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>';
             } finally {
                  formStatus.classList.remove('hidden');
             }
