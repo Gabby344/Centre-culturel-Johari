@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toutes les Actualités | Centre Culturel & Universitaire Johari</title>
+    <meta name="description" content="Découvrez toutes les actualités du Centre Johari : événements, formations, succès étudiants et nouvelles de notre communauté.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        'johari-indigo': '#1F2937',
+                        'johari-amber': '#F59E0B',
+                        'johari-gold': '#D97706',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <script src="https://kit.fontawesome.com/votre-kit-code.js" crossorigin="anonymous" defer></script>
+
+    <style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            scroll-behavior: smooth;
+        }
+
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in-element.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+        }
+
+        .transition-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .transition-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #F59E0B;
+            transition: width 0.3s ease;
+        }
+
+        .transition-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="antialiased text-gray-800 bg-gray-50 font-sans">
+    <!-- Header identique aux autres pages -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md transition-all duration-500">
+        <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="text-3xl font-serif font-extrabold text-johari-indigo tracking-wider transition-transform duration-300 hover:scale-105">
+                JOHARI
+                <span class="block text-xs font-medium text-johari-amber uppercase tracking-widest">L'shi</span>
+            </a>
+            
+            <ul class="hidden md:flex space-x-8 text-lg">
+                <li><a href="index.html#mission" class="transition-link hover:text-johari-amber py-2">Mission</a></li>
+                <li><a href="programmes.html" class="transition-link hover:text-johari-amber py-2">Programmes</a></li>
+                <li><a href="actualites.html" class="transition-link text-johari-amber font-bold py-2">Actualités</a></li>
+                <li><a href="index.html#contact" class="transition-link hover:text-johari-amber py-2">Contact</a></li>
+            </ul>
+            
+            <a href="candidature.html" class="hidden md:block bg-johari-amber text-white px-6 py-2 rounded-full font-bold transition-all duration-300 hover:bg-johari-gold shadow-md hover:shadow-lg">
+                Candidature
+            </a>
+        </nav>
+    </header>
+
+    <main class="py-16 md:py-24">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <header class="text-center mb-16 animate-fade-in">
+                <h1 class="text-4xl md:text-5xl font-serif font-extrabold text-johari-indigo mb-4">Toutes les Actualités</h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Restez informé de toute l'actualité du Centre Johari : événements, formations, succès étudiants et bien plus encore.
+                </p>
+                
+                <!-- Navigation des catégories -->
+                <div class="flex flex-wrap justify-center gap-4 mt-8">
+                    <a href="actualites-toutes.html" class="bg-johari-indigo text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
+                        Toutes
+                    </a>
+                    <a href="actualites-evenements.html" class="bg-gray-200 text-johari-indigo px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-gray-300 transform hover:scale-105">
+                        Événements
+                    </a>
+                    <a href="actualites-formations.html" class="bg-gray-200 text-johari-indigo px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-gray-300 transform hover:scale-105">
+                        Formations
+                    </a>
+                    <a href="actualites-succes.html" class="bg-gray-200 text-johari-indigo px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-gray-300 transform hover:scale-105">
+                        Succès étudiants
+                    </a>
+                </div>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Article 1 -->
+                <article class="bg-white rounded-xl shadow-lg overflow-hidden card-hover fade-in-element">
+                    <div class="relative overflow-hidden">
+                        <img src="images/actu-conference.jpg" alt="Conférence sur le leadership" class="w-full h-48 object-cover transition-transform duration-700 hover:scale-110">
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-johari-amber text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                Événement
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-sm text-johari-amber font-semibold mb-2 flex items-center">
+                            <i class="far fa-calendar-alt mr-2"></i>15 Mars 2024
+                        </p>
+                        <h3 class="text-xl font-bold mb-3 text-johari-indigo font-serif">Grande Conférence sur le Leadership Éthique</h3>
+                        <p class="text-gray-600 mb-4 line-clamp-3">Une journée exceptionnelle dédiée au leadership éthique avec des intervenants internationaux...</p>
+                        <a href="actualite-detail.html" class="text-johari-indigo font-semibold hover:text-johari-amber transition duration-300 inline-flex items-center group">
+                            Lire la suite
+                            <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="bg-white rounded-xl shadow-lg overflow-hidden card-hover fade-in-element" style="animation-delay: 0.1s">
+                    <div class="relative overflow-hidden">
+                        <img src="images/actu-formation.jpg" alt="Nouvelle formation" class="w-full h-48 object-cover transition-transform duration-700 hover:scale-110">
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-blue-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                Formation
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-sm text-johari-amber font-semibold mb-2 flex items-center">
+                            <i class="far fa-calendar-alt mr-2"></i>22 Mars 2024
+                        </p>
+                        <h3 class="text-xl font-bold mb-3 text-johari-indigo font-serif">Lancement du Programme Digital Avancé</h3>
+                        <p class="text-gray-600 mb-4 line-clamp-3">Découvrez notre nouveau programme intensif de transformation digitale pour les professionnels...</p>
+                        <a href="actualite-detail.html" class="text-johari-indigo font-semibold hover:text-johari-amber transition duration-300 inline-flex items-center group">
+                            Lire la suite
+                            <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="bg-white rounded-xl shadow-lg overflow-hidden card-hover fade-in-element" style="animation-delay: 0.2s">
+                    <div class="relative overflow-hidden">
+                        <img src="images/actu-succes.jpg" alt="Succès étudiant" class="w-full h-48 object-cover transition-transform duration-700 hover:scale-110">
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-green-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                Succès
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-sm text-johari-amber font-semibold mb-2 flex items-center">
+                            <i class="far fa-calendar-alt mr-2"></i>10 Mars 2024
+                        </p>
+                        <h3 class="text-xl font-bold mb-3 text-johari-indigo font-serif">Notre Étudiant Lauréat du Prix Innovation</h3>
+                        <p class="text-gray-600 mb-4 line-clamp-3">Félicitations à Jean Kabasele pour son projet révolutionnaire dans le domaine des énergies renouvelables...</p>
+                        <a href="actualite-detail.html" class="text-johari-indigo font-semibold hover:text-johari-amber transition duration-300 inline-flex items-center group">
+                            Lire la suite
+                            <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Pagination -->
+            <div class="flex justify-center items-center mt-12 space-x-2 fade-in-element">
+                <button class="bg-gray-200 text-johari-indigo px-4 py-2 rounded-lg font-semibold transition-all duration-300 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    <i class="fas fa-chevron-left mr-2"></i>Précédent
+                </button>
+                <button class="bg-johari-amber text-white px-4 py-2 rounded-lg font-semibold transition-all duration-300">1</button>
+                <button class="bg-gray-200 text-johari-indigo px-4 py-2 rounded-lg font-semibold transition-all duration-300 hover:bg-gray-300">2</button>
+                <button class="bg-gray-200 text-johari-indigo px-4 py-2 rounded-lg font-semibold transition-all duration-300 hover:bg-gray-300">3</button>
+                <button class="bg-gray-200 text-johari-indigo px-4 py-2 rounded-lg font-semibold transition-all duration-300 hover:bg-gray-300">
+                    Suivant<i class="fas fa-chevron-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Animation au défilement
+        const fadeElements = document.querySelectorAll('.fade-in-element');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', fadeInOnScroll);
+        window.addEventListener('load', fadeInOnScroll);
+    </script>
+</body>
+</html>
