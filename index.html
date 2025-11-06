@@ -25,9 +25,6 @@
                         'fade-in': 'fadeIn 0.8s ease-in-out',
                         'slide-up': 'slideUp 0.8s ease-out',
                         'float': 'float 6s ease-in-out infinite',
-                        'zoom-in': 'zoomIn 1s ease-out',
-                        'typewriter': 'typewriter 4s steps(40) 1s 1 normal both',
-                        'blink': 'blink 1s steps(2) infinite',
                     },
                     keyframes: {
                         fadeIn: {
@@ -41,18 +38,6 @@
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-10px)' },
-                        },
-                        zoomIn: {
-                            '0%': { opacity: '0', transform: 'scale(0.9)' },
-                            '100%': { opacity: '1', transform: 'scale(1)' },
-                        },
-                        typewriter: {
-                            'from': { width: '0' },
-                            'to': { width: '100%' },
-                        },
-                        blink: {
-                            '0%': { 'border-color': 'transparent' },
-                            '50%': { 'border-color': 'white' },
                         }
                     }
                 }
@@ -86,51 +71,31 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
-        /* Hero section avec carrousel */
-        .hero-carousel {
-            position: relative;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .carousel-slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
+        /* Hero section avec effet parallax */
+        #hero {
+            background-image: linear-gradient(rgba(31, 41, 55, 0.7), rgba(31, 41, 55, 0.7)), url('images/hero-johari-placeholder.jpg');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
+            background-attachment: fixed;
+            position: relative;
         }
 
-        .carousel-slide.active {
-            opacity: 1;
-        }
-
-        .carousel-slide::after {
+        /* Effet de dégradé animé sur le hero */
+        #hero::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, 
-                rgba(31, 41, 55, 0.8) 0%, 
-                rgba(31, 41, 55, 0.6) 50%, 
-                rgba(245, 158, 11, 0.2) 100%);
+            background: linear-gradient(45deg, rgba(245, 158, 11, 0.2), rgba(31, 41, 55, 0.8));
+            z-index: 1;
+            opacity: 0.7;
         }
 
-        /* Titre transparent avec effet de verre */
-        .glass-title {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        #hero > div {
+            position: relative;
+            z-index: 2;
         }
 
         /* Animation d'entrée pour les éléments */
@@ -224,44 +189,6 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #D97706;
         }
-
-        /* Animation de particules */
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            background: rgba(245, 158, 11, 0.6);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        /* Statistiques animées */
-        .counter {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #F59E0B;
-        }
-
-        /* Section témoignages */
-        .testimonial-card {
-            background: linear-gradient(135deg, #1F2937 0%, #374151 100%);
-            border-left: 4px solid #F59E0B;
-        }
-
-        /* Effet de parallax */
-        .parallax-section {
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
     </style>
 </head>
 <body class="antialiased text-gray-800 bg-gray-50 font-sans">
@@ -300,262 +227,234 @@
     </nav>
 
     <main>
-        <!-- Hero Section avec Carrousel -->
-        <section id="hero" class="relative h-screen flex items-center justify-center text-center overflow-hidden" role="banner">
-            <!-- Carrousel d'images -->
-            <div class="hero-carousel">
-                <div class="carousel-slide active" style="background-image: url('images/hero-1.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('images/hero-2.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('images/hero-3.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('images/hero-4.jpg')"></div>
-            </div>
-
-            <!-- Particules animées -->
-            <div class="particles" id="particles-container"></div>
-
-            <!-- Contenu principal -->
-            <div class="relative z-20 p-6 max-w-6xl animate-zoom-in">
-                <!-- Titre avec effet de verre -->
-                <div class="glass-title mb-8 animate-slide-up">
-                    <h1 class="text-5xl md:text-7xl font-serif font-extrabold text-white mb-6 leading-tight">
-                        Former l'Excellence,<br>
-                        <span class="text-johari-amber">Inspirer l'Éthique</span>
-                    </h1>
-                </div>
-
-                <p class="text-2xl text-gray-200 mb-10 animate-slide-up" style="animation-delay: 0.3s">
-                    Le Centre Johari, à Lubumbashi, pour l'épanouissement intégral et le 
-                    <strong class="text-johari-amber">leadership de la jeunesse congolaise</strong>.
+        <section id="hero" class="relative h-[60vh] md:h-[80vh] flex items-center justify-center text-center overflow-hidden" role="banner">
+            <div class="relative z-10 p-6 max-w-4xl animate-fade-in">
+                <h1 class="text-4xl md:text-6xl font-serif font-extrabold text-white mb-6 leading-snug animate-slide-up">
+                    Former l'Excellence, Inspirer l'Éthique
+                </h1>
+                <p class="text-xl text-gray-200 mb-10 animate-slide-up" style="animation-delay: 0.2s">
+                    Le Centre Johari, à Lubumbashi, pour l'épanouissement intégral et le <strong>leadership de la jeunesse congolaise</strong>.
                 </p>
-
-                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up" style="animation-delay: 0.5s">
-                    <a href="programmes.html" class="bg-johari-amber text-white text-lg px-10 py-4 rounded-full font-bold transition-all duration-500 shadow-2xl transform hover:scale-105 focus-ring shine-effect group">
-                        <span class="flex items-center">
-                            Découvrir nos Formations
-                            <svg class="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                            </svg>
-                        </span>
-                    </a>
-                    <a href="#mission" class="border-2 border-white text-white text-lg px-10 py-4 rounded-full font-bold transition-all duration-500 hover:bg-white hover:text-johari-indigo focus-ring">
-                        Notre Mission
-                    </a>
-                </div>
-
-                <!-- Statistiques en temps réel -->
-                <div class="grid grid-cols-3 gap-8 mt-16 max-w-2xl mx-auto animate-fade-in" style="animation-delay: 0.7s">
-                    <div class="text-center">
-                        <div class="counter" data-target="850">0</div>
-                        <p class="text-gray-300 text-sm uppercase tracking-wider">Étudiants Formés</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="counter" data-target="95">0</div>
-                        <p class="text-gray-300 text-sm uppercase tracking-wider">Taux de Réussite</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="counter" data-target="12">0</div>
-                        <p class="text-gray-300 text-sm uppercase tracking-wider">Programmes</p>
-                    </div>
-                </div>
+                <a href="programmes.html" class="bg-johari-amber text-white text-lg px-10 py-4 rounded-full font-bold transition-all duration-500 shadow-xl transform hover:scale-105 inline-block focus-ring shine-effect animate-slide-up" style="animation-delay: 0.4s">
+                    Découvrir nos Formations
+                </a>
             </div>
             
             <!-- Flèche de défilement -->
-            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce z-20">
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
                 <a href="#mission" class="text-white text-2xl focus-ring p-2 rounded-full transition-all duration-300 hover:text-johari-amber">
                     <i class="fas fa-chevron-down"></i>
                 </a>
             </div>
-
-            <!-- Indicateurs du carrousel -->
-            <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20">
-                <button class="carousel-indicator w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all duration-300 active"></button>
-                <button class="carousel-indicator w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all duration-300"></button>
-                <button class="carousel-indicator w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all duration-300"></button>
-                <button class="carousel-indicator w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all duration-300"></button>
-            </div>
         </section>
 
-        <!-- Section Mission améliorée -->
-        <section id="mission" class="py-20 md:py-28 bg-white relative overflow-hidden">
-            <!-- Éléments décoratifs -->
-            <div class="absolute top-0 right-0 w-64 h-64 bg-johari-amber/5 rounded-full -translate-y-32 translate-x-32"></div>
-            <div class="absolute bottom-0 left-0 w-96 h-96 bg-johari-indigo/5 rounded-full translate-y-48 -translate-x-48"></div>
-            
-            <div class="container mx-auto px-4 max-w-6xl relative z-10">
-                <div class="text-center mb-16">
-                    <span class="inline-block bg-johari-amber/10 text-johari-amber px-4 py-2 rounded-full text-sm font-semibold mb-4 animate-fade-in">
-                        Notre Engagement
-                    </span>
-                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-johari-indigo mb-6 fade-in-element">
-                        Former les Leaders de <span class="text-johari-amber">Demain</span>
-                    </h2>
-                    <p class="text-xl text-gray-600 max-w-3xl mx-auto fade-in-element">
-                        Au cœur de Lubumbashi, nous cultivons l'excellence académique et les valeurs humaines 
-                        pour bâtir une génération de leaders éthiques et compétents.
-                    </p>
-                </div>
+        <section id="mission" class="py-16 md:py-24 bg-white">
+             <div class="container mx-auto px-4 max-w-5xl">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-johari-indigo mb-6 fade-in-element">Notre Mission : L'Impact Intégral</h2>
+                <p class="text-xl text-center text-gray-600 mb-12 fade-in-element">
+                    Nous sommes dédiés à l'éducation complète de l'individu, combinant rigueur académique et développement moral et social pour bâtir l'avenir de la RDC.
+                </p>
                 
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                     <div class="fade-in-element">
-                        <div class="space-y-6">
-                            <div class="flex items-start space-x-4">
-                                <div class="w-12 h-12 bg-johari-amber rounded-full flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-gem text-white text-lg"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-2xl font-bold font-serif text-johari-indigo mb-3">Excellence Académique</h3>
-                                    <p class="text-gray-700">
-                                        Des programmes rigoureux conçus par des experts, alliant théorie et pratique 
-                                        pour une formation complète et adaptée aux défis contemporains.
-                                    </p>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-start space-x-4">
-                                <div class="w-12 h-12 bg-johari-amber rounded-full flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-heart text-white text-lg"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-2xl font-bold font-serif text-johari-indigo mb-3">Développement Intégral</h3>
-                                    <p class="text-gray-700">
-                                        Au-delà des compétences techniques, nous formons le caractère, l'éthique 
-                                        et l'engagement citoyen pour un impact positif durable.
-                                    </p>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-start space-x-4">
-                                <div class="w-12 h-12 bg-johari-amber rounded-full flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-handshake text-white text-lg"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-2xl font-bold font-serif text-johari-indigo mb-3">Impact Communautaire</h3>
-                                    <p class="text-gray-700">
-                                        Nos étudiants deviennent des acteurs du changement, contribuant 
-                                        activement au développement socio-économique de la RDC.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-8 flex flex-col sm:flex-row gap-4">
-                            <a href="apropos.html" class="bg-johari-indigo text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-indigo-800 focus-ring shine-effect inline-flex items-center justify-center">
-                                Notre Histoire
-                                <svg class="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                            <a href="programmes.html" class="border-2 border-johari-indigo text-johari-indigo px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-johari-indigo hover:text-white focus-ring inline-flex items-center justify-center">
-                                Nos Programmes
-                            </a>
-                        </div>
+                        <h3 class="text-2xl font-bold font-serif text-johari-indigo mb-4">Un Modèle Unique en Afrique Centrale</h3>
+                        <p class="text-gray-700 mb-4">
+                            Le Centre Johari se distingue par son approche holistique. Nos programmes vont au-delà de la simple transmission de connaissances pour cultiver le sens de la responsabilité, l'esprit critique et l'engagement communautaire chez chaque étudiant.
+                        </p>
+                         <a href="apropos.html" class="text-johari-indigo font-semibold border-b-2 border-johari-amber hover:text-johari-amber focus-ring transition duration-300 inline-flex items-center">
+                            En savoir plus sur Johari 
+                            <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
                     </div>
-                    
-                    <div class="grid grid-cols-2 gap-4 fade-in-element">
-                        <div class="space-y-4">
-                            <div class="rounded-2xl overflow-hidden shadow-2xl card-hover">
-                                <img src="images/mission-1.jpg" alt="Étudiants en formation" class="w-full h-48 object-cover transition-transform duration-700 hover:scale-110">
-                            </div>
-                            <div class="rounded-2xl overflow-hidden shadow-2xl card-hover">
-                                <img src="images/mission-2.jpg" alt="Infrastructure moderne" class="w-full h-32 object-cover transition-transform duration-700 hover:scale-110">
-                            </div>
-                        </div>
-                        <div class="space-y-4 pt-8">
-                            <div class="rounded-2xl overflow-hidden shadow-2xl card-hover">
-                                <img src="images/mission-3.jpg" alt="Laboratoire technologique" class="w-full h-32 object-cover transition-transform duration-700 hover:scale-110">
-                            </div>
-                            <div class="rounded-2xl overflow-hidden shadow-2xl card-hover">
-                                <img src="images/mission-4.jpg" alt="Cérémonie de remise de diplômes" class="w-full h-48 object-cover transition-transform duration-700 hover:scale-110">
-                            </div>
-                        </div>
+                    <div class="rounded-xl overflow-hidden shadow-2xl card-hover fade-in-element">
+                        <img src="image3.jpg" alt="Jeunes leaders en discussion au Centre Johari" class="w-full h-auto object-cover transition-transform duration-700 hover:scale-110">
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section Témoignages -->
-        <section class="py-20 bg-johari-indigo text-white parallax-section" style="background-image: url('images/testimonial-bg.jpg')">
-            <div class="container mx-auto px-4 max-w-6xl">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl font-serif font-bold mb-6 fade-in-element">
-                        Ils Témoignent de <span class="text-johari-amber">leur Expérience</span>
-                    </h2>
-                    <p class="text-xl text-gray-300 max-w-2xl mx-auto fade-in-element">
-                        Découvrez les parcours inspirants de nos anciens étudiants et leur impact dans la société congolaise.
-                    </p>
+        <section id="valeurs" class="py-16 md:py-24 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-johari-indigo mb-12 fade-in-element">Nos Piliers Fondateurs</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center p-8 bg-white border-t-4 border-johari-amber rounded-xl shadow-2xl card-hover fade-in-element">
+                        <div class="w-16 h-16 bg-johari-amber rounded-full flex items-center justify-center mx-auto mb-4 animate-float">
+                            <i class="fas fa-graduation-cap text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-johari-indigo">Excellence Académique</h3>
+                        <p class="text-gray-600">Des programmes rigoureux et des formateurs qualifiés pour un savoir-faire de pointe.</p>
+                    </div>
+                    <div class="text-center p-8 bg-white border-t-4 border-johari-amber rounded-xl shadow-2xl card-hover fade-in-element" style="animation-delay: 0.2s">
+                        <div class="w-16 h-16 bg-johari-amber rounded-full flex items-center justify-center mx-auto mb-4 animate-float" style="animation-delay: 0.5s">
+                            <i class="fas fa-hand-holding-heart text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-johari-indigo">Valeurs et Service</h3>
+                        <p class="text-gray-600">Développement du caractère et engagement au service de la société.</p>
+                    </div>
+                    <div class="text-center p-8 bg-white border-t-4 border-johari-amber rounded-xl shadow-2xl card-hover fade-in-element" style="animation-delay: 0.4s">
+                        <div class="w-16 h-16 bg-johari-amber rounded-full flex items-center justify-center mx-auto mb-4 animate-float" style="animation-delay: 1s">
+                            <i class="fas fa-lightbulb text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-johari-indigo">Leadership Intégral</h3>
+                        <p class="text-gray-600">Former des professionnels capables d'influencer positivement leur milieu.</p>
+                    </div>
                 </div>
+            </div>
+        </section>
+        
+        <section id="programmes" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-johari-indigo mb-12 fade-in-element">Nos Axes de Formation Clés</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Témoignage 1 -->
-                    <div class="testimonial-card p-8 rounded-2xl fade-in-element">
-                        <div class="flex items-center mb-6">
-                            <img src="images/testimonial-1.jpg" alt="Marie K." class="w-16 h-16 rounded-full object-cover border-2 border-johari-amber">
-                            <div class="ml-4">
-                                <h4 class="font-bold text-lg">Marie K.</h4>
-                                <p class="text-johari-amber text-sm">Promotion 2022</p>
-                            </div>
+                    <article class="bg-johari-indigo text-white p-8 rounded-xl shadow-2xl card-hover fade-in-element">
+                        <div class="w-12 h-12 bg-johari-amber rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-chart-line text-xl text-white"></i>
                         </div>
-                        <p class="text-gray-300 italic mb-4">
-                            "Le Centre Johari m'a offert bien plus qu'une formation. J'ai acquis des compétences de leadership qui m'ont permis de lancer mon entreprise sociale."
-                        </p>
-                        <div class="text-johari-amber">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
+                        <h3 class="text-2xl font-bold mb-3 font-serif">Leadership Stratégique</h3>
+                        <p class="mb-4">Programmes conçus pour les cadres et futurs dirigeants, axés sur la gestion éthique et la prise de décision complexe.</p>
+                        <a href="programmes.html#leadership" class="text-johari-amber font-semibold transition hover:text-white border-b border-johari-amber pb-1 inline-flex items-center">
+                            Explorer les détails
+                            <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </article>
                     
-                    <!-- Témoignage 2 -->
-                    <div class="testimonial-card p-8 rounded-2xl fade-in-element" style="animation-delay: 0.2s">
-                        <div class="flex items-center mb-6">
-                            <img src="images/testimonial-2.jpg" alt="David M." class="w-16 h-16 rounded-full object-cover border-2 border-johari-amber">
-                            <div class="ml-4">
-                                <h4 class="font-bold text-lg">David M.</h4>
-                                <p class="text-johari-amber text-sm">Promotion 2023</p>
-                            </div>
+                    <article class="bg-white text-johari-indigo p-8 rounded-xl shadow-2xl card-hover fade-in-element" style="animation-delay: 0.2s">
+                        <div class="w-12 h-12 bg-johari-amber rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-rocket text-xl text-white"></i>
                         </div>
-                        <p class="text-gray-300 italic mb-4">
-                            "L'approche holistique de Johari combine parfaitement excellence académique et développement personnel. Une expérience transformatrice !"
-                        </p>
-                        <div class="text-johari-amber">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
+                        <h3 class="text-2xl font-bold mb-3 font-serif">Incubateur d'Entreprises</h3>
+                        <p class="mb-4">De l'idée au lancement : mentorat intensif et ressources pour les start-ups à fort impact en RDC.</p>
+                        <a href="programmes.html#entrepreneuriat" class="text-johari-indigo font-semibold transition hover:text-johari-amber border-b border-johari-indigo pb-1 inline-flex items-center">
+                            Découvrir l'incubateur
+                            <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </article>
                     
-                    <!-- Témoignage 3 -->
-                    <div class="testimonial-card p-8 rounded-2xl fade-in-element" style="animation-delay: 0.4s">
-                        <div class="flex items-center mb-6">
-                            <img src="images/testimonial-3.jpg" alt="Sarah T." class="w-16 h-16 rounded-full object-cover border-2 border-johari-amber">
-                            <div class="ml-4">
-                                <h4 class="font-bold text-lg">Sarah T.</h4>
-                                <p class="text-johari-amber text-sm">Promotion 2021</p>
-                            </div>
+                    <article class="bg-johari-indigo text-white p-8 rounded-xl shadow-2xl card-hover fade-in-element" style="animation-delay: 0.4s">
+                        <div class="w-12 h-12 bg-johari-amber rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-laptop-code text-xl text-white"></i>
                         </div>
-                        <p class="text-gray-300 italic mb-4">
-                            "Grâce au réseau et aux compétences acquises à Johari, j'ai pu décrocher un poste de direction dans une multinationale à Kinshasa."
-                        </p>
-                        <div class="text-johari-amber">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
+                        <h3 class="text-2xl font-bold mb-3 font-serif">Transformation Numérique</h3>
+                        <p class="mb-4">Ateliers pratiques sur l'IA, l'analyse de données et les outils numériques essentiels pour le marché moderne.</p>
+                        <a href="programmes.html#numerique" class="text-johari-amber font-semibold transition hover:text-white border-b border-johari-amber pb-1 inline-flex items-center">
+                            Voir les ateliers
+                            <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </article>
+                </div>
+                
+                <div class="text-center mt-12 fade-in-element">
+                    <a href="programmes.html" class="bg-johari-amber text-white text-lg px-8 py-3 rounded-full font-bold transition-all duration-300 hover:bg-amber-600 shadow-lg hover:shadow-xl focus-ring shine-effect">
+                        Voir Tous les Programmes Détaillés
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- Sections existantes restantes (Valeurs, Programmes, Actualités, Partenariat, Contact) -->
-        <!-- ... Le reste de votre code existant ... -->
+        <section id="actualites" class="py-16 md:py-24 bg-gray-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-johari-indigo mb-12 fade-in-element">Dernières Actualités</h2>
+                
+                <div id="actualites-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="col-span-full text-center py-10" id="loading-message">
+                         <div class="w-16 h-16 border-4 border-johari-amber border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                         <p class="text-lg text-gray-500">Chargement des actualités...</p>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-12 fade-in-element">
+                    <a href="actualites.html" class="text-johari-indigo border-b-2 border-johari-amber transition-link hover:text-johari-amber font-semibold focus-ring inline-flex items-center">
+                        Voir toutes les actualités
+                        <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
 
+        <section id="partenariat" class="py-16 bg-johari-indigo text-white shadow-inner">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-4xl font-serif font-bold mb-4 fade-in-element">Unissons-nous pour l'Avenir du Leadership</h2>
+                <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto fade-in-element">En devenant partenaire du Centre Johari, vous investissez directement dans le potentiel de la jeunesse congolaise et l'excellence de la RDC.</p>
+                <a href="index.html#contact" class="bg-johari-amber text-johari-indigo text-lg px-8 py-3 rounded-full font-bold transition-all duration-300 shadow-lg transform hover:scale-105 inline-block focus-ring shine-effect fade-in-element">
+                    Devenir Partenaire Officiel
+                </a>
+            </div>
+        </section>
+
+        <section id="contact" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-4 max-w-3xl">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-johari-indigo mb-12 fade-in-element">Nous Contacter</h2>
+                <form id="contact-form" class="space-y-6 bg-gray-50 p-8 rounded-xl shadow-2xl card-hover fade-in-element">
+                    <input type="text" id="nom" name="nom" placeholder="Votre Nom Complet" required
+                           class="w-full p-3 border border-gray-300 rounded-lg focus-ring transition duration-300 focus:border-johari-amber">
+                    
+                    <input type="email" id="email" name="email" placeholder="Votre E-mail" required
+                           class="w-full p-3 border border-gray-300 rounded-lg focus-ring transition duration-300 focus:border-johari-amber">
+                           
+                    <textarea id="message" name="message" rows="4" placeholder="Votre Message ou Question" required
+                              class="w-full p-3 border border-gray-300 rounded-lg focus-ring transition duration-300 focus:border-johari-amber"></textarea>
+                              
+                    <button type="submit" class="w-full bg-johari-indigo text-white text-lg font-bold p-3 rounded-lg hover:bg-indigo-800 transition duration-300 transform hover:scale-[1.01] shadow-md focus-ring shine-effect">
+                        Envoyer le Message
+                    </button>
+                    <p id="form-status" class="text-center text-sm mt-3 hidden"></p>
+                </form>
+            </div>
+        </section>
     </main>
+
+    <footer class="bg-johari-indigo text-gray-300 py-12">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="fade-in-element">
+                <a href="/" class="text-2xl font-serif font-extrabold text-white tracking-wider focus-ring transition-transform duration-300 hover:scale-105 inline-block">JOHARI</a>
+                <p class="mt-3 text-sm">Former, Inspirer, Bâtir l'avenir de Lubumbashi.</p>
+            </div>
+            
+            <div class="fade-in-element" style="animation-delay: 0.1s">
+                <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Plan du Site</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="index.html#mission" class="transition-link hover:text-johari-amber focus-ring">Mission</a></li>
+                    <li><a href="programmes.html" class="transition-link hover:text-johari-amber focus-ring">Offres de Formation</a></li>
+                    <li><a href="actualites.html" class="transition-link hover:text-johari-amber focus-ring">Actualités</a></li>
+                    <li><a href="candidature.html" class="transition-link hover:text-johari-amber focus-ring">Candidature</a></li>
+                </ul>
+            </div>
+            
+            <div class="fade-in-element" style="animation-delay: 0.2s">
+                <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Nous Trouver</h4>
+                <p class="text-sm">
+                    Adresse complète du Centre Johari, <br>
+                    Lubumbashi, RDC<br>
+                    Tél : **+243 (97) 123 4567**<br>
+                    Email : contact@johari-lshi.org
+                </p>
+            </div>
+            
+            <div class="fade-in-element" style="animation-delay: 0.3s">
+                <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Réseaux Sociaux</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-xl transition-link hover:text-johari-amber focus-ring p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-xl transition-link hover:text-johari-amber focus-ring p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-xl transition-link hover:text-johari-amber focus-ring p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300"><i class="fab fa-instagram"></i></a>
+                </div>
+                <a href="/admin" class="mt-4 block text-xs text-gray-500 transition-link hover:text-johari-amber focus-ring">Espace Administration</a>
+            </div>
+        </div>
+        <div class="text-center text-xs mt-8 border-t border-indigo-800 pt-6 fade-in-element">
+            &copy; <span id="current-year"></span> Centre Culturel & Universitaire Johari. Tous droits réservés.
+        </div>
+    </footer>
 
     <script type="module">
         // Initialisation de l'année dans le footer
@@ -572,6 +471,12 @@
             mobileMenuBtn.setAttribute('aria-expanded', !isHidden);
             iconBurger.classList.toggle('hidden', !isHidden);
             iconClose.classList.toggle('hidden', isHidden);
+            
+            // Animation du menu mobile
+            if (!isHidden) {
+                mobileMenu.style.transform = 'translateY(0)';
+                mobileMenu.style.opacity = '1';
+            }
         });
 
         // Fermer le menu après un clic sur un lien (sur mobile)
@@ -584,83 +489,17 @@
             });
         });
 
-        // 2. CARROUSEL HERO
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.carousel-slide');
-        const indicators = document.querySelectorAll('.carousel-indicator');
-        const totalSlides = slides.length;
-
-        function showSlide(index) {
-            // Retirer la classe active de tous les slides et indicateurs
-            slides.forEach(slide => slide.classList.remove('active'));
-            indicators.forEach(indicator => indicator.classList.remove('active'));
-            
-            // Ajouter la classe active au slide et indicateur courant
-            slides[index].classList.add('active');
-            indicators[index].classList.add('active');
-        }
-
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            showSlide(currentSlide);
-        }
-
-        // Démarrer le carrousel automatique
-        setInterval(nextSlide, 5000);
-
-        // Gérer les clics sur les indicateurs
-        indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => {
-                currentSlide = index;
-                showSlide(currentSlide);
-            });
+        // 2. EFFET DE TRANSPARENCE AU DÉFILEMENT SUR LE HEADER
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         });
 
-        // 3. PARTICULES ANIMÉES
-        function createParticles() {
-            const container = document.getElementById('particles-container');
-            const particleCount = 15;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                // Position et taille aléatoires
-                const size = Math.random() * 4 + 1;
-                const left = Math.random() * 100;
-                const top = Math.random() * 100;
-                const delay = Math.random() * 5;
-                
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${left}%`;
-                particle.style.top = `${top}%`;
-                particle.style.animationDelay = `${delay}s`;
-                
-                container.appendChild(particle);
-            }
-        }
-
-        // 4. COMPTEURS ANIMÉS
-        function animateCounters() {
-            const counters = document.querySelectorAll('.counter');
-            const speed = 200;
-            
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText;
-                const increment = target / speed;
-                
-                if (count < target) {
-                    counter.innerText = Math.ceil(count + increment);
-                    setTimeout(() => animateCounters(), 1);
-                } else {
-                    counter.innerText = target;
-                }
-            });
-        }
-
-        // 5. ANIMATION AU DÉFILEMENT
+        // 3. ANIMATION AU DÉFILEMENT DES ÉLÉMENTS
         const fadeElements = document.querySelectorAll('.fade-in-element');
         
         const fadeInOnScroll = () => {
@@ -670,43 +509,125 @@
                 
                 if (elementTop < window.innerHeight - elementVisible) {
                     element.classList.add('visible');
-                    
-                    // Démarrer les compteurs quand la section mission est visible
-                    if (element.closest('#mission')) {
-                        animateCounters();
-                    }
                 }
             });
         };
+        
+        // Vérifier au chargement et au défilement
+        window.addEventListener('scroll', fadeInOnScroll);
+        window.addEventListener('load', fadeInOnScroll);
 
-        // 6. EFFET DE TRANSPARENCE AU DÉFILEMENT SUR LE HEADER
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
+        // 4. ANIMATION DES LIENS AVEC FLÈCHES
+        document.querySelectorAll('a').forEach(link => {
+            if (link.textContent.includes('→') || link.textContent.includes('&rarr;')) {
+                link.classList.add('group');
             }
-            
-            fadeInOnScroll();
         });
 
-        // Initialisation
-        window.addEventListener('load', () => {
-            createParticles();
-            fadeInOnScroll();
-            
-            // Animation des liens avec flèches
-            document.querySelectorAll('a').forEach(link => {
-                if (link.textContent.includes('→') || link.textContent.includes('&rarr;')) {
-                    link.classList.add('group');
+        // ======================================================================
+        // 5. INTÉGRATION FIREBASE (Code inchangé)
+        // ======================================================================
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+        import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-functions.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyCQdZppl-UsPCXF8iFmXQpcGAFjHEMt838",
+          authDomain: "gestion-saint-charles-lwanga.firebaseapp.com",
+          projectId: "gestion-saint-charles-lwanga",
+          storageBucket: "gestion-saint-charles-lwanga.firebasestorage.app",
+          messagingSenderId: "508302363143",
+          appId: "1:508302363143:web:35c181528dd84def1a78a2"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const functions = getFunctions(app);
+
+        console.log("🔥 Firebase initialisé pour les services Firestore et Functions.");
+
+        // ... (loadActualites et contactForm.addEventListener inchangés)
+        const actualitesContainer = document.getElementById('actualites-container');
+
+        async function loadActualites() {
+            try {
+                const actualitesRef = collection(db, "actualites");
+                const q = query(actualitesRef, orderBy("date", "desc"), limit(3));
+                
+                const querySnapshot = await getDocs(q);
+                
+                const actualites = querySnapshot.docs.map(doc => ({ 
+                    id: doc.id, 
+                    ...doc.data(), 
+                    date: doc.data().date ? new Date(doc.data().date.seconds * 1000).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Date non spécifiée'
+                }));
+                
+                // Masquer le message de chargement
+                document.getElementById('loading-message').style.display = 'none'; 
+
+                if (actualites.length === 0) {
+                     actualitesContainer.innerHTML = '<p class="col-span-3 text-center text-gray-600">Aucune actualité récente disponible pour le moment.</p>';
+                     return;
                 }
-            });
+
+                // ... (Rendu des actualités)
+                actualitesContainer.innerHTML = actualites.map(actu => `
+                    <article class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-[1.02] transition duration-500 card-hover fade-in-element">
+                        <img src="images/${actu.image || 'default.jpg'}" alt="Image de l'actualité: ${actu.titre}" class="w-full h-48 object-cover transition-transform duration-700 hover:scale-110">
+                        <div class="p-6">
+                            <p class="text-sm text-johari-amber font-semibold mb-2">${actu.date}</p>
+                            <h3 class="text-xl font-bold mb-3 text-johari-indigo">${actu.titre}</h3>
+                            <a href="actualites.html#${actu.id}" class="text-johari-indigo font-semibold hover:text-johari-amber transition duration-300 focus-ring inline-flex items-center">
+                                Lire la suite
+                                <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </article>
+                `).join('');
+
+                // Réinitialiser l'animation pour les nouvelles actualités
+                setTimeout(fadeInOnScroll, 100);
+
+            } catch (error) {
+                console.error("Erreur de chargement des actualités (Firestore):", error);
+                document.getElementById('loading-message').innerHTML = '<p class="text-red-500">Erreur lors du chargement des données.</p>';
+            }
+        }
+        
+        loadActualites();
+
+        const contactForm = document.getElementById('contact-form');
+        const formStatus = document.getElementById('form-status');
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            formStatus.classList.remove('hidden', 'text-green-600', 'text-red-600');
+            formStatus.classList.add('text-gray-500');
+            formStatus.textContent = 'Envoi en cours...';
+
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const sendContactEmail = httpsCallable(functions, 'sendContactEmail'); 
+                await sendContactEmail(data);
+
+                formStatus.textContent = 'Votre message a été envoyé avec succès. Merci !';
+                formStatus.classList.remove('text-gray-500');
+                formStatus.classList.add('text-green-600');
+                contactForm.reset(); 
+
+            } catch (error) {
+                console.error("Erreur d'envoi du formulaire (Cloud Function):", error);
+                formStatus.textContent = "Une erreur est survenue lors de l'envoi.";
+                formStatus.classList.remove('text-gray-500');
+                formStatus.classList.add('text-red-600');
+            } finally {
+                 formStatus.classList.remove('hidden');
+            }
         });
-
-        // Le reste de votre code Firebase reste inchangé...
-        // ... (votre code Firebase existant)
-
     </script>
 </body>
 </html>
